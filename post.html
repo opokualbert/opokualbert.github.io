@@ -219,7 +219,7 @@ df.head()
    <pre class="pre-scrollable">
 df.info()
 df.describe()
-<pre/>
+</pre>
         <p>Let us extract the year out of the date of birth and date of death fields so that we can calculate the age of each player.</p>
 <pre class="pre-scrollable">
 df[‘date_of_death’] = df.date_of_death.str.slice(0, 4).astype(int)
@@ -227,14 +227,14 @@ df[‘date_of_birth’] = df.date_of_birth.str.slice(0, 4).astype(int)
 df['age']=df.date_of_death - df.date_of_birth
 print(df.head())
 df.describe()
-<pre/>
+</pre>
        <p>It does look like Jackie Benyon was born in the year 2000 but died in 1937. How could that be? That is what you deal with when you work with raw data. We will exclude Jackie Benyon from the data soon. Data on Xie Hui also doesn’t seem to be correct.</p>
 <pre class="pre-scrollable">  
 df[(df['date_of_death']==426)|(df['age']==-63)]
 df=df[df['age']!=-63]
 df=df[df['date_of_death']!=426]
 df.describe()  
-<pre/>
+</pre>
 
       <p>After excluding these two players, the average age at death for soccer players is 55.Now let us visualize the causes of death for the players. I will visualize the top 20 causes. It is worth to note that Wikipedia sometimes publish multiple cause of death for an individual. It could be that doctors attribute multiple diseases as the cause of death for some patients.</p>
  <pre class="pre-scrollable">
@@ -248,7 +248,7 @@ ax.yaxis.set_label_text('')
 ax.xaxis.set_label_text('Cause of death count')
 ax.annotate(footer, xy=(-0.1, -0.14), xycoords='axes fraction', fontsize=infosize)
 plt.savefig('img',dpi=300, bbox_inches = "tight")
-<pre/>
+</pre>
 
 <img class="img-fluid" src="img/img_players_graph.png" alt="">
          <p>The result is not as expected. You would think people that workout that much won’t develop myocardial infarction aka “heart attack”. Perhaps they stop exercising when they retired from active football or food choices may be blamed. The doctors can help us out. Traffic accident at position number three is interesting. I can’t think about any reason behind this, there surely maybe something going on with these players that is not captured in this data. Have fun, explore the rest of the graph. You can also try your hands on the code.</p>
