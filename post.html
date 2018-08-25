@@ -174,10 +174,11 @@ infosize = 12</pre>
 
             <p>I would like to acknowledge Ramiro Gómez for sharing his SPARQL python code on <a href="https://github.com/opokualbert/Causes-of-Death-for-Soccer-Players/">GitHub</a>.</p>
             <pre class="pre-scrollable">
-query = ‘’’PREFIX wikibase: <http://wikiba.se/ontology#>
-PREFIX wd: <http://www.wikidata.org/entity/>
-PREFIX wdt: <http://www.wikidata.org/prop/direct/>
-PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+            <!-- Please remove (!-- and --) from the 4 lines below -->
+query = '''PREFIX wikibase: <!--http://wikiba.se/ontology#-->
+PREFIX wd: <!--http://www.wikidata.org/entity/-->
+PREFIX wdt: <!--http://www.wikidata.org/prop/direct/-->
+PREFIX rdfs: <!--http://www.w3.org/2000/01/rdf-schema#-->
 SELECT ?name ?cause ?dob ?dod ?country WHERE {
  ?pid wdt:P106 wd:Q937857 . 
  ?pid wdt:P509 ?cid .
@@ -193,7 +194,7 @@ OPTIONAL {
  OPTIONAL {
  ?cot rdfs:label ?country filter (lang(?country) = “en”) .
  }
-}’’’
+}'''
 url = ‘https://query.wikidata.org/bigdata/namespace/wdq/sparql'
 data = requests.get(url, params={‘query’: query, ‘format’: ‘json’}).json()
  </pre>
@@ -238,7 +239,7 @@ df.describe()
 
       <p>After excluding these two players, the average age at death for soccer players is 55.Now let us visualize the causes of death for the players. I will visualize the top 20 causes. It is worth to note that Wikipedia sometimes publish multiple cause of death for an individual. It could be that doctors attribute multiple diseases as the cause of death for some patients.</p>
  <pre class="pre-scrollable">
- title = 'Association Football(Soccer) players top 20 Causes of Death According to Wikipedia'
+title = 'Association Football(Soccer) players top 20 Causes of Death According to Wikipedia'
 footer =  chartinfo
     
 df['cause of death'] = df['cause_of_death'].apply(lambda x: x.capitalize())
