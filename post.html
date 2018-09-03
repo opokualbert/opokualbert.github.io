@@ -53,6 +53,131 @@
     </nav>
 
     <!-- Page Header -->
+    <div id="colab"></div>
+    <header class="masthead" style="background-image: url('img/colab.png')">
+      <div class="overlay"></div>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1>Downloading Kaggle Datasets into Google Colab</h1>
+              <h2 class="subheading">Easy Access to Kaggle Datasets in Colab</h2>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on September 3, 2018</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p>In this tutorial, I show how to download kaggle datasets into google colab. Kaggle has been and remains the de factor platform to try your hands on data science projects. The platform has huge rich free datasets for machine learning projects.</p>
+
+            <p>Another product from google, the company behind kaggle is colab, a platform suitable for training machine learning models and deep neural network free of charge without any installation requirement. One key thing that makes colab a game changer, especially for people who do not own GPU laptop is that users have the option to train their models with free GPU. Colab does not have the trove of datasets kaggle host on its platform therefore, it will be nice if you could access the datasets on kaggle from colab. There is in fact a kaggle API which we can use in colab but setting it up to work is not so easy. I would want to show how to use the API in a few simple steps.</p>
+           
+            <h2 class="section-heading">Step 1</h2>
+            <p>Create a kaggle account if you do not have one already. Click on your user name, click on account.</p>
+             <a href="#">
+              <img class="img-fluid" src="img/kaggle api 1.png" alt="">
+            </a>
+            <p>Scroll down to click on create new API token. This will download a file unto your PC. Note the location of the downloaded file.</p>
+            <a href="#">
+              <img class="img-fluid" src="img/kaggle api 2.PNG" alt="">
+            </a>
+
+            <h2 class="section-heading">Step 2</h2>
+            <p>Go to colab via this link: https://colab.research.google.com/notebooks/welcome.ipynb and under file, click on new python 3 notebook. In the first cell, type this code to install kaggle API and make a directory called kaggle.</p>
+
+              <pre class="pre-scrollable">
+!pip install -U -q kaggle
+!mkdir -p ~/.kaggle</pre>
+            <h2 class="section-heading">Step 3</h2>
+
+            <p>Type this code into the next cell and run to import the API key into colab</p>
+            <pre class="pre-scrollable">
+from google.colab import files
+files.upload()</pre>
+            <p>In the next cell, run this code to copy the API key to the kaggle directory we created.</p>
+<pre class="pre-scrollable">
+!cp kaggle.json ~/.kaggle/</pre>            
+
+
+            <p>The datasets should be available for us to use. Let us list the datasets with this code.</p>
+<pre class="pre-scrollable">
+!kaggle datasets list</pre>
+            
+            <h2 class="section-heading">Step 4</h2>
+
+            <p>We can download files now by using this sample code. In this case the US consumer finance complaints was downloaded.</p>
+<pre class="pre-scrollable">
+!kaggle datasets download -d cfpb/us-consumer-finance-complaints
+!ls</pre>
+            <h2 class="section-heading">Step 5</h2>
+            <p>We use pandas to read the data we have downloaded by unzipping the file first. This line of code works in most situations.</p>
+<pre class="pre-scrollable">
+import pandas as pd
+data2 = pd.read_csv('/content/us-consumer-finance-complaints.zip', compression='zip', header=0, sep=',', quotechar='"')</pre>
+            <p>It did not work here because the zipped file also contains a sqlite database. I will use a different method below to extract only the CSV.</p>
+<pre class="pre-scrollable">
+from zipfile import ZipFile
+zip_file = ZipFile('/content/us-consumer-finance-complaints.zip')
+fields= ['product','consumer_complaint_narrative'] 
+data=pd.read_csv(zip_file.open('consumer_complaints.csv'), usecols=fields)
+data.head()</pre>
+            
+            <p>You can get the entire code on at<a href="https://github.com/opokualbert/Downloading-Kaggle-Datasets-into-Google-Colab">GitHub</a>.</p>
+              
+         </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupredictiveanalytics">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Your Website 2018</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+
+    
     
     <div id="Soccer"></div>
     <header class="masthead" style="background-image: url('img/Player.jpg')">
