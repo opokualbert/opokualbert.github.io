@@ -87,43 +87,42 @@
             <p>This dataset is relatively not large but this kind of machine learning process requires more compute power so I chose to use Google’s colab, which gives the option to train a model with free GPU. I have a previous blog post on downloading Kaggle datasets into Google Colab on my <a href="https://opokualbert.com/post.html#colab">website</a>, you may want to check it out if you are interested in downloading this dataset to follow along with this demo.  
             <p>I will walk through the steps and in the end, we will classify new complaints and see how the model performed.</p>
             <p>The complete code is saved on <a href="https://github.com/opokualbert/Classification-of-customer-complaints-using-tensorflow---Text-Classification-with-Word-Embeddings/blob/master/Consumer%20Complaints%20Classification.ipynb">Github</a>.</p>
-            <pre class="pre-scrollable">
-!pip install -U -q kaggle
-!mkdir -p ~/.kaggle</pre>
-            <h2 class="section-heading">Step 3</h2>
-
-            <p>Type this code into the next cell and run to import the API key into colab</p>
-            <pre class="pre-scrollable">
-from google.colab import files
-files.upload()</pre>
-            <p>In the next cell, run this code to copy the API key to the kaggle directory we created.</p>
-<pre class="pre-scrollable">
-!cp kaggle.json ~/.kaggle/</pre>            
-
-
-            <p>The datasets should be available for us to use. Let us list the datasets with this code.</p>
-<pre class="pre-scrollable">
-!kaggle datasets list</pre>
             
-            <h2 class="section-heading">Step 4</h2>
 
-            <p>We can download files now by using this sample code. In this case the US consumer finance complaints was downloaded.</p>
+            <p>We We import the need packages for this work.</p>
 <pre class="pre-scrollable">
-!kaggle datasets download -d cfpb/us-consumer-finance-complaints
-!ls</pre>
-            <h2 class="section-heading">Step 5</h2>
-            <p>We use pandas to read the data we have downloaded by unzipping the file first. This line of code works in most situations.</p>
-<pre class="pre-scrollable">
+import os
+import numpy as np
 import pandas as pd
-data2 = pd.read_csv('/content/us-consumer-finance-complaints.zip', compression='zip', header=0, sep=',', quotechar='"')</pre>
-            <p>It did not work here because the zipped file also contains a sqlite database. I will use a different method below to extract only the CSV.</p>
+import tensorflow as tf
+import tensorflow_hub as hub
+import json
+import pickle
+import urllib
+
+from sklearn.preprocessing import LabelBinarizer
+
+print(tf.__version__)</pre>
+  <h2 class="section-heading">Data Preparation and Cleaning</h2>      
+            <p>Take a look at the data with pandas.</p>
 <pre class="pre-scrollable">
-from zipfile import ZipFile
-zip_file = ZipFile('/content/us-consumer-finance-complaints.zip')
-fields= ['product','consumer_complaint_narrative'] 
-data=pd.read_csv(zip_file.open('consumer_complaints.csv'), usecols=fields)
+data = data[pd.notnull(data['consumer_complaint_narrative'])]
+data.head()
+</pre>
+            <p>We convert the consumer_complaint_narrative column to lower case, perfect for NLP.</p>
+<pre class="pre-scrollable">
+pd.set_option('max_colwidth', 1000)
+data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.lower()
 data.head()</pre>
-            
+
+ <p>We characters that do not have predictive power and can missinform the model.</p>
+<pre class="pre-scrollable">
+ import re
+data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.replace('x', '')
+data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.replace('{', '')
+data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.replace('}', '')
+data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.replace('/', '')
+data.head() </pre>
             <p>You can get the entire code on at <a href="https://github.com/opokualbert/Downloading-Kaggle-Datasets-into-Google-Colab">GitHub</a>.</p>
               
          </div>
