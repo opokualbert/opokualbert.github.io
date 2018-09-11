@@ -86,7 +86,6 @@
             <p>I used the universal-sentence-encoder-large/3 module on the new tensorflowhub platform to leverage the power of transfer learning which according to Wikipedia, is a research problem in machine learning that focuses on storing knowledge gained while solving one problem and applying it to a different but related problem. Google and other teams have made available on tensorflowhub, models that took them about 62,000 GPU hours to train for our free use.</p>
             <p>This dataset is relatively not large but this kind of machine learning process requires more compute power so I chose to use Google’s colab, which gives the option to train a model with free GPU. I have a previous blog post on downloading Kaggle datasets into Google Colab on my <a href="https://opokualbert.com/post.html#colab">website</a>, you may want to check it out if you are interested in downloading this dataset to follow along with this demo.  
             <p>I will walk through the steps and in the end, we will classify new complaints and see how the model performed.</p>
-            <p>The complete code is saved on <a href="https://github.com/opokualbert/Classification-of-customer-complaints-using-tensorflow---Text-Classification-with-Word-Embeddings/blob/master/Consumer%20Complaints%20Classification.ipynb">Github</a>.</p>
             
 
             <p>We We import the need packages for this work.</p>
@@ -123,7 +122,7 @@ data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.
 data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.replace('}', '')
 data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.replace('/', '')
 data.head() </pre>
-            <p>You can get the entire code on at <a href="https://github.com/opokualbert/Downloading-Kaggle-Datasets-into-Google-Colab">GitHub</a>.</p>
+            <p>The complete code is saved on <a href="https://github.com/opokualbert/Classification-of-customer-complaints-using-tensorflow---Text-Classification-with-Word-Embeddings/blob/master/Consumer%20Complaints%20Classification.ipynb">Github</a>.</p>
               
          </div>
         </div>
