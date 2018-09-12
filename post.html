@@ -161,7 +161,7 @@ print(train_encoded[0])
 <pre class="pre-scrollable">
 description_embeddings = hub.text_embedding_column("descriptions", module_spec="https://tfhub.dev/google/universal-sentence-encoder-large/3", trainable=False)
 </pre>          
-            <p>We are going to use a DNNEstimator to train a deep neural net.The model will have 2 hidden layers of 64 neurons and in th efirst layer and 10 neurons in the second layer. We also use a batch_size of 100 and 10 epochs. These are parameters you can tune to find the perfect combination. We also pass the inputs, in this case, the features and lable as well as the description_embeddings.</p>
+            <p>We are going to use a DNNEstimator to train a deep neural net.The model will have 2 hidden layers of 64 neurons in the first layer and 10 neurons in the second layer. We also use a batch_size of 100 and 10 epochs. These are parameters you can tune to find the perfect combination. We also pass the inputs, in this case, the features and lable as well as the description_embeddings.</p>
             <p>Batch_size represent the number of examples that will be passed to our model during one iteration, and num_epochs is the number of times our model will go through the entire training set.</p>
 <pre class="pre-scrollable">
 
@@ -196,7 +196,7 @@ estimator.evaluate(input_fn=train_input_fn_1)
 eval_input_fn = tf.estimator.inputs.numpy_input_fn({"descriptions": np.array(val_desc).astype(np.str)}, val_encoded.astype(np.int32), shuffle=False)
 estimator.evaluate(input_fn=eval_input_fn)
 </pre>
-            <p>Finally, let us test our model and see how it will do on classifying new data. We will test the model with 67 records. It got a few inccorect. You will see that those the model could not predict correctly also had low prediction probility.</p>
+            <p>Finally, let us test our model and see how it will do on classifying new data. We will test the model with 67 records. It got a few inccorect. You will see that those the model could not predict correctly also had low confidence values.</p>
  <pre class="pre-scrollable">
  
 predict_input_fn = tf.estimator.inputs.numpy_input_fn({"descriptions": np.array(test_descriptions).astype(np.str)}, shuffle=False)
