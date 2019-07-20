@@ -62,7 +62,190 @@
         </div>
       </div>
     </nav>
+    
+    
+    <!-- Page Header -->
+    
+    
+    <div id="ner"></div>
+    <header class="masthead" style="background-image: url('img/eugenio-mazzone-190204-unsplash.jpg')">
+      <div class="overlay"></div>
+      <div class="ner">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1>Name Entity Recognition With Stanford NLP NER Package:</h1>
+              <h2 class="subheading">Automated Information Extraction from Text</h2>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on July 20, 2019</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
 
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p>In this short post, I will show how to get the entities in an article or any text documents using Natural language 
+              processing technique. We will use the powerful NER Package by Stanford NLP in this tutorial.</p>
+
+            <p>
+              Entities could be a person, organization, location, date/time, money, percentage, the list goes on. 
+              This is useful if you quickly need to gather the specific salient information about a very long document, 
+              example who contacted who at what time and at what place; 
+              and which organization do they work for or are they discussing? Was money involved in the dealings and how much?
+            </p>
+           
+            <p>
+            If your job involve answering these kinds of questions using text documents, then this tutorial may improve your productivity.
+            </p>
+            <p>
+             We are using the text from this article from techrunch. 
+             [African fintech dominates Catalyst Fund’s 2019 startup cohort](https://techcrunch.com/2019/06/21/african-fintech-dominates-catalyst-funds-2019-startup-cohort/)
+
+            </p>
+<p>Make sure you have java.exe in this location. Sometimes, it is not required, depending on your machine setup</p>
+
+<pre class="pre-scrollable">
+import os
+java_path = "C:/Program Files/Java/jre1.8.0_211/bin/java.exe"
+os.environ['JAVAHOME'] = java_path
+            
+<p>We import packages and create a function to capture the entities, credit to Omar Bahareth.</p>
+<pre class="pre-scrollable">
+from nltk.tag.stanford import StanfordNERTagger
+from nltk.tokenize import word_tokenize
+
+def formatted_entities(classified_paragraphs_list):
+    entities = {'persons': list(), 'organizations': list(), 'locations': list(), 'dates': list(), 'money': list(), 'percent': list()}
+
+    for classified_paragraph in classified_paragraphs_list:
+        for entry in classified_paragraph:
+            entry_value = entry[0]
+            entry_type = entry[1]
+
+            if entry_type == 'PERSON':
+                entities['persons'].append(entry_value)
+
+            elif entry_type == 'ORGANIZATION':
+                entities['organizations'].append(entry_value)
+
+            elif entry_type == 'LOCATION':
+                entities['locations'].append(entry_value)
+            elif entry_type == 'DATE':
+                entities['dates'].append(entry_value)
+            elif entry_type == 'MONEY':
+                entities['money'].append(entry_value)
+            elif entry_type == 'PERCENT':
+                entities['percent'].append(entry_value)
+    return entities
+</pre>
+
+      
+<p>
+Download stanford-ner-2018-10-16 and unzip to get  english.muc.7class.distsim.crf.ser.gz and stanford-ner.jar files. Save them in the appropraite folder
+from stanfor nlp site [Stanford parser](https://nlp.stanford.edu/software/stanford-parser-full-2018-10-17.zip) and run the code below.
+</p>
+<pre class="pre-scrollable">
+tagger = StanfordNERTagger('/Users/Shared/stanford-ner/classifiers/english.muc.7class.distsim.crf.ser.gz',
+               '/Users/Shared/stanford-ner/stanford-ner.jar',encoding='utf-8')
+</pre>
+<p>Import spacy to extract the data from the text file</p>
+<pre class="pre-scrollable">
+import spacy,en_core_web_sm
+import pandas as pd
+
+nlp = en_core_web_sm.load()
+doc = nlp(open('African_Fintech.txt', encoding="utf8").read())
+</pre>
+
+<p>We create a dataframe that has the tokenized sentences in a column.</p>
+<pre class="pre-scrollable">
+ 
+d = []
+for idno, sentence in enumerate(doc.sents):
+    d.append({"id": idno, "sentence":str(sentence)})
+
+df = pd.DataFrame(d)
+df.set_index('id', inplace=True)
+
+print('There are {}'.format(len(d)) ,'Sentences in this article')
+df.head()
+</pre>
+<p>
+Convert the sentences to a list and create the result: a dictionary of all the entities you specified above.
+</p>
+            
+<pre class="pre-scrollable">
+df1=df.sentence.tolist()
+tokenized_paragraphs = list()
+
+for text in df1:
+    tokenized_paragraphs.append(word_tokenize(text))
+
+classified_paragraphs_list = tagger.tag_sents(tokenized_paragraphs)
+
+
+formatted_result = formatted_entities(classified_paragraphs_list)
+print(formatted_result)
+</pre>
+
+<a href="#">
+              <img class="img-fluid" src="img/Capture.JPG" alt="">
+            </a>
+
+
+<p>The complete code is saved on <a href="https://github.com/opokualbert/Name_Entity_Recognition_With_Stanford_NLP/blob/master/Name_Entity_Recognition_With_Stanford_NLP.ipynb">Github</a>.</p>
+
+         </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupredictiveanalytics">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2019</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+    
     <!-- Page Header -->
     <div id="complaint"></div>
     <header class="masthead" style="background-image: url('img/eugenio-mazzone-190204-unsplash.jpg')">
