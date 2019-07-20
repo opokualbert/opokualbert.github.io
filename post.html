@@ -104,8 +104,8 @@
             If your job involve answering these kinds of questions using text documents, then this tutorial may improve your productivity.
             </p>
             <p>
-             We are using the text from this article from techrunch. 
-             [African fintech dominates Catalyst Fund’s 2019 startup cohort](https://techcrunch.com/2019/06/21/african-fintech-dominates-catalyst-funds-2019-startup-cohort/)
+             We are using the text from this article from techrunch. <a href="https://techcrunch.com/2019/06/21/african-fintech-dominates-catalyst-funds-2019-startup-cohort/">African fintech dominates Catalyst Fund’s 2019 startup cohort</a>
+            
 
             </p>
 <p>Make sure you have java.exe in this location. Sometimes, it is not required, depending on your machine setup</p>
@@ -114,6 +114,7 @@
 import os
 java_path = "C:/Program Files/Java/jre1.8.0_211/bin/java.exe"
 os.environ['JAVAHOME'] = java_path
+</pre>
             
 <p>We import packages and create a function to capture the entities, credit to Omar Bahareth.</p>
 <pre class="pre-scrollable">
@@ -143,13 +144,14 @@ def formatted_entities(classified_paragraphs_list):
             elif entry_type == 'PERCENT':
                 entities['percent'].append(entry_value)
     return entities
-</pre>
 
+</pre>
       
 <p>
 Download stanford-ner-2018-10-16 and unzip to get  english.muc.7class.distsim.crf.ser.gz and stanford-ner.jar files. Save them in the appropraite folder
-from stanfor nlp site [Stanford parser](https://nlp.stanford.edu/software/stanford-parser-full-2018-10-17.zip) and run the code below.
+from stanfor nlp site <a href="https://nlp.stanford.edu/software/stanford-parser-full-2018-10-17.zip">Stanford parser</a> and run the code below.
 </p>
+
 <pre class="pre-scrollable">
 tagger = StanfordNERTagger('/Users/Shared/stanford-ner/classifiers/english.muc.7class.distsim.crf.ser.gz',
                '/Users/Shared/stanford-ner/stanford-ner.jar',encoding='utf-8')
