@@ -89,14 +89,14 @@ Automated Information Extraction from Text - Natural Language Processing</title>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-            <p>In this short tutorial I show how to extract text from images and scanned PDFs 
+            <p>In this short tutorial I show how to extract text from images and scanned pdfs 
               and store the results in a database to make the document searchable..</p>
 
             <p>
-              PDF documents and images with text are difficult to work with. Most business people manually read through multiple 
+              Pdf documents and images with text are difficult to work with. Most business people manually read through multiple 
               pages to retrieve the information they are looking for. 
               We want to use a python program that will take a pdf, whether scanned or not as well as any image that contains text 
-              and extract the text by page and index each page in a DataFrame which can be stored in any database of your choice and 
+              and extract the text by page and index each page in a dataframe which can be stored in any database of your choice and 
               be made available for users to write a search query against the table.
             </p>
            
@@ -108,7 +108,7 @@ Automated Information Extraction from Text - Natural Language Processing</title>
              For the package pytesseract to work, download and install tesseract-ocr from this link. 
              <a href="https://github.com/UB-Mannheim/tesseract/wiki">tesseract-ocr.</a>
             </p>
-<p>The complete code is saved on <a href="https://github.com/opokualbert/Named_Entity_Recognition_With_Stanford_NLP/blob/master/Named_Entity_Recognition_With_Stanford_NLP.ipynb">
+<p>The complete code is saved on <a href="https://github.com/opokualbert/Creating-a-searchable-database-with-text-extracted-from-scanned-Pdfs-or-images/blob/master/Pdf%20Text%20OCR%20-%20Searchable%20Pdf%20text%20in%20a%20Database.ipynb">
   Github</a>.</p></p>   
           <p>
             I want to give credit to Ratul Doley for his work on youtube.</p>
@@ -134,7 +134,7 @@ pd.options.display.max_rows = 500
 <p>These few lines of code import the pdf and convert the file to images and then extract the text in the images. 
  The resulotion you set has an effect on the performance of the code. Higher resolution is better but makes the code slow.</p>
 <pre class="pre-scrollable">
-fpdf = wand(filename = "machine_learning_mastery_with_weka_mini_course.pdf", resolution = 300)
+pdf = wand(filename = "machine_learning_mastery_with_weka_mini_course.pdf", resolution = 300)
 pdfImage = pdf.convert('jpeg')
 
 Blobs = []
@@ -217,7 +217,7 @@ df
       </div>
     </footer>
  <hr>
- ENNNNNNDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+ 
     
     
     
