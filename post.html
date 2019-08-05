@@ -63,6 +63,164 @@ Automated Information Extraction from Text - Natural Language Processing</title>
         </div>
       </div>
     </nav>
+        <!-- Page Header -->
+    
+    
+    <div id="ner"></div>
+    <header class="masthead" style="background-image: url('img/jen-theodore-hbkWMj41Y0I-unsplash.jpg')">
+      <div class="overlay"></div>
+      <div class="ner">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1>Creating a Searchable Database with Text Extracted from Scanned Pdfs or Images:</h1>
+              <h2 class="subheading">Pdf Text OCR - Searchable Pdf text in a Database</h2>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on August 5, 2019</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p>In this short tutorial I show how to extract text from images and scanned PDFs 
+              and store the results in a database to make the document searchable..</p>
+
+            <p>
+              PDF documents and images with text are difficult to work with. Most business people manually read through multiple 
+              pages to retrieve the information they are looking for. 
+              We want to use a python program that will take a pdf, whether scanned or not as well as any image that contains text 
+              and extract the text by page and index each page in a DataFrame which can be stored in any database of your choice and 
+              be made available for users to write a search query against the table.
+            </p>
+           
+            <p>
+              The example we will use is a pdf document with a mini course on Weka by machine learning mastery. The pdf has 23 pages. 
+              We will use python packages wand, pillow and pytesseract to convert it to image and then extract each page text , all in one program.
+            </p>
+            <p>
+             For the package pytesseract to work, download and install tesseract-ocr from this link. 
+             <a href="https://github.com/UB-Mannheim/tesseract/wiki">tesseract-ocr.</a>
+            </p>
+<p>The complete code is saved on <a href="https://github.com/opokualbert/Named_Entity_Recognition_With_Stanford_NLP/blob/master/Named_Entity_Recognition_With_Stanford_NLP.ipynb">
+  Github</a>.</p></p>   
+          <p>
+            I want to give credit to Ratul Doley for his work on youtube.</p>
+
+<p>We import packages and set options .</p>
+<pre class="pre-scrollable">
+#pip install pillow
+#pip install pytesseract
+from PIL import Image
+import pytesseract
+import io
+from wand.image import Image as wand
+
+#First install tesseract-ocr from this link https://github.com/UB-Mannheim/tesseract/wiki
+#Then add this line for tesseract ocr to work
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
+
+import pandas as pd
+pd.set_option('max_colwidth', 2000)
+pd.options.display.max_rows = 500
+</pre>
+            
+<p>These few lines of code import the pdf and convert the file to images and then extract the text in the images. 
+ The resulotion you set has an effect on the performance of the code. Higher resolution is better but makes the code slow.</p>
+<pre class="pre-scrollable">
+fpdf = wand(filename = "machine_learning_mastery_with_weka_mini_course.pdf", resolution = 300)
+pdfImage = pdf.convert('jpeg')
+
+Blobs = []
+
+for g in pdfImage.sequence:
+    page = wand(image = g)
+    Blobs.append(page.make_blob('jpeg'))
+
+extract = []
+
+for b in Blobs:
+    m = Image.open(io.BytesIO(b))
+    text = pytesseract.image_to_string(m, lang = 'eng')
+    extract.append(text)
+
+print('Done extracting text')
+
+</pre>
+      
+<p>
+The code below will take the results from the above program and and convert it to a pandas dataframe and assign a category just incase
+you are adding more documents. You can also add a time stamp. Each row on the table represent a page from the pdf document and the 
+ index is the page number.
+</p>
+
+<pre class="pre-scrollable">
+df = pd.DataFrame(extract,columns =['Page_Text'])\
+.replace(r'\n',' ', regex=True)
+df['Category'] = 'WEKA'
+df
+</pre>
+
+
+
+<p>
+  This dataframe can be saved in a database for business users to query. I will write another post to show some nlp examples we can do this table.
+</p>
+
+         </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupredictiveanalytics">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2019</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+ ENNNNNNDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDDD
+    
+    
+    
     
     
     <!-- Page Header -->
