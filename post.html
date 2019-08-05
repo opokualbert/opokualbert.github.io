@@ -97,7 +97,7 @@ Automated Information Extraction from Text - Natural Language Processing</title>
               pages to retrieve the information they are looking for. 
               We want to use a python program that will take a pdf, whether scanned or not as well as any image that contains text 
               and extract the text by page and index each page in a dataframe which can be stored in any database of your choice and 
-              be made available for users to write a search query against the table.
+              be made available for users to write nlp search or mine the text on the table.
             </p>
            
             <p>
@@ -132,7 +132,7 @@ pd.options.display.max_rows = 500
 </pre>
             
 <p>These few lines of code import the pdf and convert the file to images and then extract the text in the images. 
- The resulotion you set has an effect on the performance of the code. Higher resolution is better but makes the code slow.</p>
+ The resolution you set has an effect on the performance of the code. Higher resolution is better but makes the code slow.</p>
 <pre class="pre-scrollable">
 pdf = wand(filename = "machine_learning_mastery_with_weka_mini_course.pdf", resolution = 300)
 pdfImage = pdf.convert('jpeg')
@@ -156,7 +156,7 @@ print('Done extracting text')
       
 <p>
 The code below will take the results from the above program and and convert it to a pandas dataframe and assign a category just incase
-you are adding more documents. You can also add a time stamp. Each row on the table represent a page from the pdf document and the 
+you are adding more documents. You can also add a time stamp. Each row on the table represents a page from the pdf document and the 
  index is the page number.
 </p>
 
@@ -170,7 +170,7 @@ df
 
 
 <p>
-  This dataframe can be saved in a database for business users to query. I will write another post to show some nlp examples we can do this table.
+  This dataframe can be saved in a database for business users to query. I will write another post to show some nlp examples we can do on this table.
 </p>
 
          </div>
