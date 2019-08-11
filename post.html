@@ -89,27 +89,30 @@ Automated Information Extraction from Text - Natural Language Processing</title>
       <div class="container">
         <div class="row">
           <div class="col-lg-8 col-md-10 mx-auto">
-            <p>In this short tutorial I show how to extract text from images and scanned pdfs 
-              and store the results in a database to make the document searchable..</p>
+            <p>In my previous post <a href="https://opokualbert.com/post.html#ner>previous post</a>, I showed how you can get the entities in an article or 
+              text documents using natural language processing NER Package by Stanford NLP.</p>
 
             <p>
-              Pdf documents and images with text are difficult to work with. Most business people manually read through multiple 
-              pages to retrieve the information they are looking for. 
-              We want to use a python program that will take a pdf, whether scanned or not as well as any image that contains text 
-              and extract the text by page and index each page in a dataframe which can be stored in any database of your choice and 
-              be made available for users to write nlp search or mine the text on the table.
+             In this post I will share how to do this in a few lines of code in Spacy and compare the results from the two packages. 
+              Named entity recognition is using natural language 
+              processing to pull out all entities like a person, organization, money, geo location, time and date from an article or documents.
             </p>
            
             <p>
-              The example we will use is a pdf document with a mini course on Weka by machine learning mastery. The pdf has 23 pages. 
-              We will use python packages wand, pillow and pytesseract to convert it to image and then extract each page text , all in one program.
+              Spacy and Stanford NLP python packages both use part of speech tagging to identify which entity a word in the article 
+              should be assigned to. As I indicated in the previous post this is useful if you quickly need to gather the specific 
+              salient information about a very long document, example who contacted who at what time and at what place; and which 
+              organization do they work for or are they discussing? Was money involved in the dealings and how much? It turns out 
+              spacy is fast and also requires a few lines of code but the results is more accurate compared to Stanford NLP NER. 
+              Spacy also gives additional methods to describe or explain what the labels represent. 
+              And if you so desire, you can also visualize the entities in the text document.
             </p>
             <p>
-             For the package pytesseract to work, download and install tesseract-ocr from this link. 
-             <a href="https://github.com/UB-Mannheim/tesseract/wiki">tesseract-ocr.</a>
+             For comparison purposes, I will use the same text I used in the earlier post. The text is from this article from techrunch. 
+             <a href="https://techcrunch.com/2019/06/21/african-fintech-dominates-catalyst-funds-2019-startup-cohort/>African fintech dominates Catalyst Fund’s 2019 startup cohort</a>
             </p>
-<p>The complete code is saved on <a href="https://github.com/opokualbert/Creating-a-searchable-database-with-text-extracted-from-scanned-Pdfs-or-images/blob/master/Pdf%20Text%20OCR%20-%20Searchable%20Pdf%20text%20in%20a%20Database.ipynb">
-  Github</a>.</p></p>   
+<p>The complete code is saved on 
+  <a href="https://github.com/opokualbert/Creating-a-searchable-database-with-text-extracted-from-scanned-Pdfs-or-images/blob/master/Pdf%20Text%20OCR%20-%20Searchable%20Pdf%20text%20in%20a%20Database.ipynb">Github</a>.</p></p>   
           <p>
             I want to give credit to Ratul Doley for his work on youtube.</p>
 
