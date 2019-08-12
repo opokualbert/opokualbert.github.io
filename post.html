@@ -105,7 +105,7 @@ Automated Information Extraction from Text - Natural Language Processing</title>
               organization do they work for or are they discussing? Was money involved in the dealings and how much? 
               <p>
               It turns out 
-              spacy is fast and also requires a few lines of code. In addition, spacy's is more accurate in identifying entities 
+              spacy is fast and also requires a few lines of code. In addition, spacy is more accurate in identifying entities 
               compared to Stanford NLP NER at least for this particular dataset. 
               Spacy also gives additional methods to describe or explain what the labels represent. 
               And if you so desire, you can also visualize the entities in the text document.</p>
@@ -130,7 +130,7 @@ pd.options.display.max_rows = 500
 
 </pre>
             
-<p>These few lines of code loads the spacy large english core language model, loads and pasre the text file we are trying to 
+<p>These few lines of code loads the spacy large english core language model, loads and parse the text file we are trying to 
   analyse and 
   assign to spacy object named doc. We also take a look at the content of the document loaded.</p>
 <pre class="pre-scrollable">
@@ -141,7 +141,7 @@ doc
       
 <p>
 We write a for loop to extract the words, their entities (level) as determined by 
-spacy and the description of each of the entities and put into a list called table.
+spacy and the description of each of the entities and put them into a list called table.
 </p>
 <pre class="pre-scrollable">
 table = []
