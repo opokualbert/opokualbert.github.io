@@ -102,10 +102,15 @@ Automated Information Extraction from Text - Natural Language Processing</title>
               Spacy and Stanford NLP python packages both use part of speech tagging to identify which entity a word in the article 
               should be assigned to. As I indicated in the previous post this is useful if you quickly need to gather the specific 
               salient information about a very long document, example who contacted who at what time and at what place; and which 
-              organization do they work for or are they discussing? Was money involved in the dealings and how much? It turns out 
+              organization do they work for or are they discussing? Was money involved in the dealings and how much? 
+              <p>
+              It turns out 
               spacy is fast and also requires a few lines of code but the results is more accurate compared to Stanford NLP NER. 
               Spacy also gives additional methods to describe or explain what the labels represent. 
-              And if you so desire, you can also visualize the entities in the text document.
+              And if you so desire, you can also visualize the entities in the text document.</p>
+            <a href="#">
+              <img class="img-fluid" src="img/Spacy_screensot.JPG" alt="">
+            </a>
             </p>
             <p>
              For comparison purposes, I will use the same text I used in the earlier post. The text is from this article from techrunch. 
@@ -115,66 +120,45 @@ Automated Information Extraction from Text - Natural Language Processing</title>
   <a href="https://github.com/opokualbert/Named_Entity_Recognition_With_Spacy">Github.</a></p></p> 
  
 
-<p>We import packages and set options .</p>
+<p>We import Spacy and other packages  .</p>
 <pre class="pre-scrollable">
-#pip install pillow
-#pip install pytesseract
-from PIL import Image
-import pytesseract
-import io
-from wand.image import Image as wand
-
-#First install tesseract-ocr from this link https://github.com/UB-Mannheim/tesseract/wiki
-#Then add this line for tesseract ocr to work
-pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
-
+import spacy
 import pandas as pd
 pd.set_option('max_colwidth', 2000)
 pd.options.display.max_rows = 500
+
 </pre>
             
-<p>These few lines of code import the pdf and convert the file to images and then extract the text in the images. 
- The resolution you set has an effect on the performance of the code. Higher resolution is better but makes the code slow.</p>
+<p>These few lines of code loads the spacy large english core language model, loads and pasre the text file we are trying to 
+  analyse and 
+  assign to spacy object named doc. We also take a look at the content of the document loaded.</p>
 <pre class="pre-scrollable">
-pdf = wand(filename = "machine_learning_mastery_with_weka_mini_course.pdf", resolution = 300)
-pdfImage = pdf.convert('jpeg')
-
-Blobs = []
-
-for g in pdfImage.sequence:
-    page = wand(image = g)
-    Blobs.append(page.make_blob('jpeg'))
-
-extract = []
-
-for b in Blobs:
-    m = Image.open(io.BytesIO(b))
-    text = pytesseract.image_to_string(m, lang = 'eng')
-    extract.append(text)
-
-print('Done extracting text')
-
+nlp = spacy.load('en_core_web_lg')
+doc = nlp(open('African_Fintech.txt', encoding="utf8").read())
+doc
 </pre>
       
 <p>
-The code below will take the results from the above program and and convert it to a pandas dataframe and assign a category just incase
-you are adding more documents. You can also add a time stamp. Each row on the table represents a page from the pdf document and the 
- index is the page number.
+We write a for loop to extract the words, their entities (level) as determined by 
+spacy and the description of each of the entities and put into a list called table.
 </p>
-
 <pre class="pre-scrollable">
-df = pd.DataFrame(extract,columns =['Page_Text'])\
-.replace(r'\n',' ', regex=True)
-df['Category'] = 'WEKA'
-df
+table = []
+for ent in doc.ents:
+    table.append([ent.text,ent.label_,spacy.explain(ent.label_)])
 </pre>
 
 
 
 <p>
-  This dataframe can be saved in a database for business users to query. I will write another post to show some nlp examples we can do on this table.
+ Let us convert the list into a pandas dataframe and take a look at the information we extracted. We also filter on the Lable column
+  to be able to compare the results with the Stanford Nlp results. Please pull the Stanford Nlp results from the previous post and compare.
 </p>
-
+<pre class="pre-scrollable">
+df2 = pd.DataFrame(table, columns=['Entity', 'Label','Label_Description']).sort_values(by=['Label'])
+print(df2)
+df2.loc[df2['Label'].isin(['PERSON','ORG','PERCENT','MONEY','LOCATION','GPE','DATE'])]
+</pre>
          </div>
         </div>
       </div>
