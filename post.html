@@ -73,7 +73,7 @@ Automated Information Extraction from Text - Natural Language Processing</title>
           <div class="col-lg-8 col-md-10 mx-auto">
             <div class="post-heading">
               <h1>Training a domain specific Word2Vec word embedding model with Gensim</h1>
-              <h2 class="subheading">Improve your text search and and classification  - Natural Language Processing</h2>
+              <h2 class="subheading">Improve your text search and classification  - Natural Language Processing</h2>
               <span class="meta">Posted by
                 <a href="#">Albert Opoku</a>
                 on August 25, 2019</span>
@@ -162,22 +162,51 @@ From the code example for our domain specific model, we are able to find the mos
   <a href="https://github.com/opokualbert/Domain_Specific_Word2Vec_Word_Embedding_Model_with_Gensim">Github.</a></p></p> 
  
 
-<p>We import Spacy and other packages  .</p>
+<p>We import all the needed packages  .</p>
 <pre class="pre-scrollable">
-import spacy
-import pandas as pd
-pd.set_option('max_colwidth', 2000)
-pd.options.display.max_rows = 500
+import re  # For preprocessing
+import pandas as pd  # For data handling
+from time import time  # To time our operations
+from collections import defaultdict  # For word frequency
 
+import spacy  # For preprocessing
+
+import logging  # Setting up the loggings to monitor gensim
+logging.basicConfig(format="%(levelname)s - %(asctime)s: %(message)s", datefmt= '%H:%M:%S', level=logging.INFO)
+
+pd.set_option('max_colwidth', 1000)
+pd.options.display.max_rows = 500
 </pre>
-            
-<p>These few lines of code loads the spacy large english core language model, loads and parse the text file we are trying to 
-  analyse and 
-  assign to spacy object named doc. We also take a look at the content of the document loaded.</p>
+<p>Load the pickle file that contains the text documents. This file is a subset of the CFPB data from kaggle, which was used in some of my 
+  previous posts.
+  I am also reseting the index, showing the numer of columns and taking a look at the top 5 documents</p>
+<pre class="pre-scrollable">     
+  df = pd.read_pickle('df_orig.pkl')
+  df=df.reset_index(drop=True)
+  df.shape
+  df.head() 
+ </pre> 
+      
+<p>Write a function to preprocess the text documents.</p>
 <pre class="pre-scrollable">
-nlp = spacy.load('en_core_web_lg')
-doc = nlp(open('African_Fintech.txt', encoding="utf8").read())
-doc
+nlp = spacy.load('en', disable=['ner', 'parser']) # disabling Named Entity Recognition for speed
+
+def cleaning(doc):
+    txt = [token.lemma_ for token in doc]
+    if len(txt) > 2:
+        return ' '.join(txt)
+brief_cleaning = (re.sub("[^A-Za-z']+", ' ', str(row)).lower() for row in df['consumer_complaint_narrative'])
+t = time()
+
+txt = [cleaning(doc) for doc in nlp.pipe(brief_cleaning, batch_size=5000, n_threads=-1)]
+
+print('Time to clean up everything: {} mins'.format(round((time() - t) / 60, 2)))
+df_clean = pd.DataFrame({'clean': txt})
+df_clean = df_clean.dropna().drop_duplicates()
+df_clean['clean'] = df_clean['clean'].str.replace('x', '')
+df_clean['clean'] = df_clean['clean'].str.replace('-PRON-', '')
+print(df_clean.shape)
+df_clean.head()
 </pre>
       
 <p>
