@@ -64,7 +64,149 @@ Automated Information Extraction from Text - Natural Language Processing</title>
       </div>
     </nav>
             <!-- Page Header -->
+
+     <div id="domain_word2vec"></div>
+    <header class="masthead" style="background-image: url('img/romain-vignes-ywqa9IZB-dU-unsplash.jpg')">
+      <div class="overlay"></div>
+      <div class="spacy_ner">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <div class="post-heading">
+              <h1>Training a domain specific Word2Vec word embedding model with Gensim</h1>
+              <h2 class="subheading">Improve your text search and and classification  - Natural Language Processing</h2>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on August 25, 2019</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </header>
+
+    <!-- Post Content -->
+    <article>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p>In my <a href="https://opokualbert.com/post.html#ner">previous post</a>, I showed how you can get the entities in an article or 
+              text documents using natural language processing NER Package by Stanford NLP.</p>
+
+            <p>
+             In this post I will share how to do this in a few lines of code in Spacy and compare the results from the two packages. 
+              Named entity recognition is using natural language 
+              processing to pull out all entities like a person, organization, money, geo location, time and date from an article or documents.
+            </p>
+           
+            <p>
+              Spacy and Stanford NLP python packages both use part of speech tagging to identify which entity a word in the article 
+              should be assigned to. As I indicated in the previous post this is useful if you quickly need to gather the specific 
+              salient information about a very long document, example who contacted who at what time and at what place; and which 
+              organization do they work for or are they discussing? Was money involved in the dealings and how much? 
+              <p>
+              It turns out 
+              spacy is fast and also requires a few lines of code. In addition, spacy is more accurate in identifying entities 
+              compared to Stanford NLP NER at least for this particular dataset. 
+              Spacy also gives additional methods to describe or explain what the labels represent. 
+              And if you so desire, you can also visualize the entities in the text document.</p>
+            <a href="#">
+              <img class="img-fluid" src="img/Spacy_screensot.JPG" alt="">
+            </a>
+            </p>
+            <p>
+             For comparison purposes, I will use the same text I used in the earlier post. The text is from this article from techrunch. 
+             <a href="https://techcrunch.com/2019/06/21/african-fintech-dominates-catalyst-funds-2019-startup-cohort">
+              African fintech dominates Catalyst Fund’s 2019 startup cohort.</a> </p>
+<p>The complete code is saved on 
+  <a href="https://github.com/opokualbert/Named_Entity_Recognition_With_Spacy">Github.</a></p></p> 
+ 
+
+<p>We import Spacy and other packages  .</p>
+<pre class="pre-scrollable">
+import spacy
+import pandas as pd
+pd.set_option('max_colwidth', 2000)
+pd.options.display.max_rows = 500
+
+</pre>
+            
+<p>These few lines of code loads the spacy large english core language model, loads and parse the text file we are trying to 
+  analyse and 
+  assign to spacy object named doc. We also take a look at the content of the document loaded.</p>
+<pre class="pre-scrollable">
+nlp = spacy.load('en_core_web_lg')
+doc = nlp(open('African_Fintech.txt', encoding="utf8").read())
+doc
+</pre>
+      
+<p>
+We write a for loop to extract the words, their entities (level) as determined by 
+spacy and the description of each of the entities and put them into a list called table.
+</p>
+<pre class="pre-scrollable">
+table = []
+for ent in doc.ents:
+    table.append([ent.text,ent.label_,spacy.explain(ent.label_)])
+</pre>
+
+
+
+<p>
+ Let us convert the list into a pandas dataframe and take a look at the information we extracted. We also filter on the Lable column
+  to be able to compare the results with the Stanford Nlp results. Please pull the Stanford Nlp results from the previous post and compare.
+</p>
+<pre class="pre-scrollable">
+df2 = pd.DataFrame(table, columns=['Entity', 'Label','Label_Description']).sort_values(by=['Label'])
+print(df2)
+df2.loc[df2['Label'].isin(['PERSON','ORG','PERCENT','MONEY','LOCATION','GPE','DATE'])]
+</pre>
+         </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
     
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupredictiveanalytics">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2019</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+    
+    
+    
+        <!-- Page Header -->
     
     <div id="spacy_ner"></div>
     <header class="masthead" style="background-image: url('img/levi-morsy-HPeyuY6SrUw-unsplash.jpg')">
