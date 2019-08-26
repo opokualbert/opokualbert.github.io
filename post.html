@@ -102,7 +102,7 @@ Automated Information Extraction from Text - Natural Language Processing</title>
     <p>
     Word2Vec assumes two words that have the same context will also share the same meaning and therefore, both 
     words will have similar vector representation. The vector of a word is a semantic representation of 
-    how that word is used in context. being able to represent words as dense vectors is 
+    how that word is used in context. Being able to represent words as dense vectors is 
     the core of the successes registered in the application of deep learning to NLP in recent times.
     <a href="#">
               <img class="img-fluid" src="img/a_word_by.JPG" alt="">
@@ -110,7 +110,7 @@ Automated Information Extraction from Text - Natural Language Processing</title>
     </p>
            
  <p>
-Word2vec utilize two model architectures, continuous bag-of-words (CBOW) or continuous skip-gram. 
+Word2vec utilizes two model architectures, continuous bag-of-words (CBOW) or continuous skip-gram. 
          For models that use continuous bag-of-words, a current word is predicted from a window of surrounding context words. 
          In other words, you hide the target word and use the surrounding words to predict the hidden word. 
          The order of surrounding words does not influence prediction. 
@@ -134,13 +134,14 @@ Word2vec utilize two model architectures, continuous bag-of-words (CBOW) or cont
 After converting words to vector representations, math can be done on the vectors. 
 You could find answers to analogy questions like:
 
-*Columbus is to Ohio as what is to Illinois?*
+          <p> Columbus is to Ohio as what is to Illinois?</p>
 
-*word vector(Columbus) - word vector(Ohio) + word vector(Illinois) = Chicago*
+<p>word vector(Columbus) - word vector(Ohio) + word vector(Illinois) = Chicago</p>
 
+<p>
 Or the popular one:
 
-*King - Man + woman   is Queen* </p>
+King - Man + woman   is Queen </p>
           
 <p>
 From the code example for our domain specific model, we are able to find the most similar words to *foreclosure*. 
@@ -232,7 +233,7 @@ print('Time to train the model: {} mins'.format(round((time() - t) / 60, 2)))
 </pre>
       
 <p>
- Save the model for future use
+ Save the model for future use.
 </p>
 <pre class="pre-scrollable">
 w2v_model.wv.save_word2vec_format("cfpb_generic_word2vec.model")
