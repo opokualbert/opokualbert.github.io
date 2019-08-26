@@ -187,26 +187,23 @@ pd.options.display.max_rows = 500
   df.head() 
  </pre> 
       
-<p>Write a function to preprocess the text documents.</p>
+<p>The lines of code below are for cleaning the text and tokenize into words.</p>
 <pre class="pre-scrollable">
-nlp = spacy.load('en', disable=['ner', 'parser']) # disabling Named Entity Recognition for speed
+df['clean'] = df['consumer_complaint_narrative'].str.replace('X', '')
+df['clean'] = df['clean'].str.replace('\n', '')
 
-def cleaning(doc):
-    txt = [token.lemma_ for token in doc]
-    if len(txt) > 2:
-        return ' '.join(txt)
-brief_cleaning = (re.sub("[^A-Za-z']+", ' ', str(row)).lower() for row in df['consumer_complaint_narrative'])
-t = time()
-
-txt = [cleaning(doc) for doc in nlp.pipe(brief_cleaning, batch_size=5000, n_threads=-1)]
-
-print('Time to clean up everything: {} mins'.format(round((time() - t) / 60, 2)))
-df_clean = pd.DataFrame({'clean': txt})
-df_clean = df_clean.dropna().drop_duplicates()
-df_clean['clean'] = df_clean['clean'].str.replace('x', '')
-df_clean['clean'] = df_clean['clean'].str.replace('-PRON-', '')
-print(df_clean.shape)
+df = df.dropna().drop_duplicates()
+df_clean= df[['clean']]
 df_clean.head()
+
+sentences = df_clean.clean.astype('str').tolist()
+sentences[0]
+
+tokenizer = RegexpTokenizer(r'\w+')
+sentences_tokenized = [w.lower() for w in sentences]
+sentences_tokenized = [tokenizer.tokenize(i) for i in sentences_tokenized]
+sentences_tokenized[0]
+
 </pre>
       
 <p>
@@ -214,22 +211,85 @@ We write a for loop to extract the words, their entities (level) as determined b
 spacy and the description of each of the entities and put them into a list called table.
 </p>
 <pre class="pre-scrollable">
-table = []
-for ent in doc.ents:
-    table.append([ent.text,ent.label_,spacy.explain(ent.label_)])
+sent = [row.split() for row in df_clean['clean']]
+sentences = sent
+word_freq = defaultdict(int)
+for sents in sentences:
+    for i in sents:
+        word_freq[i] += 1
+len(word_freq)
 </pre>
 
 
 
 <p>
- Let us convert the list into a pandas dataframe and take a look at the information we extracted. We also filter on the Lable column
-  to be able to compare the results with the Stanford Nlp results. Please pull the Stanford Nlp results from the previous post and compare.
+ Set the parameters and build the model for 5 epochs.
 </p>
 <pre class="pre-scrollable">
-df2 = pd.DataFrame(table, columns=['Entity', 'Label','Label_Description']).sort_values(by=['Label'])
-print(df2)
-df2.loc[df2['Label'].isin(['PERSON','ORG','PERCENT','MONEY','LOCATION','GPE','DATE'])]
+w2v_model = Word2Vec(min_count=10,
+                     window=10,
+                     size=300,
+                     sample=6e-5, 
+                     alpha=0.03, 
+                     min_alpha=0.0007, 
+                     negative=20,
+                     workers=cores-1)
+t = time()
+
+w2v_model.build_vocab(sentences_tokenized, progress_per=10000)
+
+print('Time to build vocab: {} mins'.format(round((time() - t) / 60, 2)))                     
+t = time()
+
+w2v_model.train(sentences_tokenized, total_examples=w2v_model.corpus_count, epochs=5, report_delay=1)
+
+print('Time to train the model: {} mins'.format(round((time() - t) / 60, 2)))
 </pre>
+      
+<p>
+ Save the model for future use
+</p>
+<pre class="pre-scrollable">
+w2v_model.wv.save_word2vec_format("cfpb_generic_word2vec.model")
+</pre>
+ 
+<p>
+ Use the model to find the top 20 most similar words to the word delinquent. 
+ See how the model is able to pick words that are misspelled.
+</p>
+<pre class="pre-scrollable">
+w2v_model.wv.most_similar(positive=["delinquent"],topn=20)
+</pre>
+<p>
+<a href="#">
+ <img class="img-fluid" src="img/deliquent.JPG" alt="">
+ </a>
+ </p>
+
+<p>
+ Use the model to find the top 20 most similar words to the word mod. 
+</p>
+<pre class="pre-scrollable">
+w2v_model.wv.most_similar(positive=["mod"],topn=20)
+</pre>
+<p>
+<a href="#">
+ <img class="img-fluid" src="img/mod.JPG" alt="">
+ </a>
+ </p>
+ 
+<p>
+ Use the model to find the top 20 most similar words to the state of ohio. 
+</p>
+<pre class="pre-scrollable">
+w2v_model.wv.most_similar(positive=["ohio"],topn=20)
+</pre>
+<p>
+<a href="#">
+ <img class="img-fluid" src="img/ohio.JPG" alt="">
+ </a>
+ </p>
+
          </div>
         </div>
       </div>
