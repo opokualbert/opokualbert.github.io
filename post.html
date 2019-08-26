@@ -168,18 +168,19 @@ import re  # For preprocessing
 import pandas as pd  # For data handling
 from time import time  # To time our operations
 from collections import defaultdict  # For word frequency
+from nltk.tokenize import RegexpTokenizer
+import multiprocessing
 
-import spacy  # For preprocessing
+from gensim.models import Word2Vec
 
 import logging  # Setting up the loggings to monitor gensim
 logging.basicConfig(format="%(levelname)s - %(asctime)s: %(message)s", datefmt= '%H:%M:%S', level=logging.INFO)
-
 pd.set_option('max_colwidth', 1000)
 pd.options.display.max_rows = 500
 </pre>
 <p>Load the pickle file that contains the text documents. This file is a subset of the CFPB data from kaggle, which was used in some of my 
   previous posts.
-  I am also reseting the index, showing the numer of columns and taking a look at the top 5 documents</p>
+  I am also reseting the index, showing the numer of columns and taking a look at the top 5 documents.</p>
 <pre class="pre-scrollable">     
   df = pd.read_pickle('df_orig.pkl')
   df=df.reset_index(drop=True)
@@ -187,7 +188,7 @@ pd.options.display.max_rows = 500
   df.head() 
  </pre> 
       
-<p>The lines of code below are for cleaning the text and tokenize into words.</p>
+<p>The lines of code below are for cleaning the text and to tokenize into words.</p>
 <pre class="pre-scrollable">
 df['clean'] = df['consumer_complaint_narrative'].str.replace('X', '')
 df['clean'] = df['clean'].str.replace('\n', '')
@@ -205,22 +206,6 @@ sentences_tokenized = [tokenizer.tokenize(i) for i in sentences_tokenized]
 sentences_tokenized[0]
 
 </pre>
-      
-<p>
-We write a for loop to extract the words, their entities (level) as determined by 
-spacy and the description of each of the entities and put them into a list called table.
-</p>
-<pre class="pre-scrollable">
-sent = [row.split() for row in df_clean['clean']]
-sentences = sent
-word_freq = defaultdict(int)
-for sents in sentences:
-    for i in sents:
-        word_freq[i] += 1
-len(word_freq)
-</pre>
-
-
 
 <p>
  Set the parameters and build the model for 5 epochs.
