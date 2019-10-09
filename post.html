@@ -66,6 +66,139 @@
     </nav>
     </div>
     <br>
+    
+                    <!-- Page Header -->
+
+     <div id="seleniumr"></div>
+
+
+    <!-- Post Content -->
+    <div class="container">
+    <article>
+ 
+
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p><p/>
+           <p>
+                     <div class="row">
+               <div class="post-heading">
+              <h2>Automated File Downloader:</h2>
+              <h3 class="subheading">With Python, Chromedriver and Selenium</h3>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on October 08, 2019</span>
+                 <a href="#">
+ <img class="img-fluid" src="img/floppydisk.jpg" alt="">
+ </a>
+            </div>
+                       </p>
+            <p>
+Downloading a single file from a website is simply easy and does not require a tutorial whatsoever. Where it becomes a daunting task 
+is when you need to download multiple files of say hundreds or thousands. For most employees, 
+a big percentage of their daily tasks involve downloading files and then the files are stitched together for a report or analysis.          
+      
+            </p>
+
+    <p>
+In this short tutorial, I will show how you can download one year stock price data from yahoo finance for multiple companies using their ticker symbols. Python, chromedriver and selenium package were used to automate this process. 
+You could use the same code to download any other file type.
+    </p>
+           
+ <p>
+If you want to try your hands on the process copy the code from my. 
+<a href="https://github.com/opokualbert/Python-Automated-File-Downloader">Github page.</a>
+Credit to Artur Spirin, this post was inspired by his tutorial.
+ </p>
+ 
+
+<p>You need to download chromdriver from here <a href="https://chromedriver.chromium.org/downloads">Github page.</a> 
+ And save it in your directory
+ Change the tickers list to as many stock tickers you want to download the stock price for and that is it</p>
+<pre class="pre-scrollable">
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+options = webdriver.ChromeOptions()
+
+#Change this to your default downloading folder r"C:\Users\alber\selenium\download_files"
+preferences = {"download.default_directory": r"C:\Users\alber\selenium\download_files", "safebrowsing.enabled": "false"}
+
+options.add_experimental_option("prefs", preferences)
+
+driver = webdriver.Chrome(options=options)
+
+tickers= ['AAN','AMP','BAC','C','CAT','CINF','CMI','DFS','HUM','MCK','TECD','TSN','URI','PYPL','AYX']
+
+for ticker in tickers:
+    driver.get("https://finance.yahoo.com/quote/" +ticker+ "/history?p="+ticker)
+
+    driver.find_element(By.XPATH, '//*[@id="Col1-1-HistoricalDataTable-Proxy"]/section/div[1]/div[2]/span[2]/a').click() 
+</pre>
+            
+<p>
+  In case duplicate files are downloaded, use the code below to remove the duplicate files from the folder. 
+ </p>
+<pre class="pre-scrollable">     
+import os
+
+file_path = r"C:\Users\alber\selenium\download_files"
+file_list = os.listdir(file_path)
+# print (file_list)
+for file_name in file_list:
+    if " (1)" not in file_name:
+        continue
+    original_file_name = file_name.replace(' (1)', '')
+    if not os.path.exists(os.path.join(file_path, original_file_name)):
+        continue  # do not remove files which have no original
+    os.remove(os.path.join(file_path, file_name))
+ </pre> 
+      
+
+
+         </div>
+        </div>
+     
+  </article>
+ </div>
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupmachinelearning">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2019</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
   
                 <!-- Page Header -->
 
