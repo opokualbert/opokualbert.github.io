@@ -202,13 +202,13 @@ if (!doNotTrack) {
 options  <span style="color:#f92672">=</span> webdriver.ChromeOptions()
 <span style="color:#75715e"># Change this to your default downloading folder r"C:\Users\alber\selenium\download_files"</span>
 preferences  <span style="color:#f92672">=</span> {"download.default_directory": r"C:\Users\alber\selenium\download_files", "safebrowsing.enabled": "false"}
-options  <span style="color:#f92672">.</span> add_experimental_option("prefs", preferences)
+options <span style="color:#f92672">.</span>add_experimental_option("prefs", preferences)
 driver <span style="color:#f92672">=</span> webdriver.Chrome(options=options)
 tickers <span style="color:#f92672">=</span> ['AAN','AMP','BAC','C','CAT','CINF','CMI','DFS','HUM','MCK','TECD','TSN','URI','PYPL','AYX']
 
-<span style="color:#66d9ef">for</span>ticker<span style="color:#a6e22e">in</span>tickers:
-    driver <span style="color:#f92672">.</span> get("https://finance.yahoo.com/quote/" +ticker+ "/history?p="+ticker)
-    eval_set  <span style="color:#f92672">.</span> find_element(By.XPATH, '//*[@id="Col1-1-HistoricalDataTable-Proxy"]/section/div[1]/div[2]/span[2]/a').click()
+<span style="color:#66d9ef">for</span> ticker <span style="color:#a6e22e"> in </span> tickers:
+    driver<span style="color:#f92672">.</span>get("https://finance.yahoo.com/quote/" +ticker+ "/history?p="+ticker)
+    eval_set<span style="color:#f92672">.</span>find_element(By.XPATH, '//*[@id="Col1-1-HistoricalDataTable-Proxy"]/section/div[1]/div[2]/span[2]/a').click()
 
 </div>
 <p>In case duplicate files are downloaded, use the code below to remove the duplicate files from the folder.</p>
@@ -222,9 +222,9 @@ file_list  <span style="color:#f92672">=</span>os.listdir(file_path)"
 	<span style="color:#66d9ef">if</span> " (1)" <span style="color:#f92672">not in</span> file_name:
 	    continue
 	original_file_name <span style="color:#f92672">=</span> file_name.replace(' (1)', '')
-	<span style="color:#66d9ef">if</span>not</span> os.path.exists(os.path.join(file_path, original_file_name)):
+	<span style="color:#66d9ef">if</span> not </span> os.path.exists(os.path.join(file_path, original_file_name)):
 	    continue
-		os<span style="color:#f92672">.</span> remove(os.path.join(file_path, file_name))
+		os<span style="color:#f92672">.</span>remove(os.path.join(file_path, file_name))
 
 		</div>
 		
