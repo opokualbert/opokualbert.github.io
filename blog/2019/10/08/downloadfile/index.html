@@ -1,0 +1,347 @@
+<!DOCTYPE html>
+<html class="no-js" lang="en-us">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<meta http-equiv="X-UA-Compatible" content="IE=edge">
+	<title>Automated File Downloader With Python, Chromedriver and Selenium</title>
+	<script>(function(d,e){d[e]=d[e].replace("no-js","js");})(document.documentElement,"className");</script>
+	<meta name="description" content="I will show how you can download one year stock price data from yahoo finance for multiple companies using their ticker symbols.">
+	
+
+	
+	<link rel='preload' href='//apps.shareaholic.com/assets/pub/shareaholic.js' as='script' />
+	<script type="text/javascript" data-cfasync="false" async src="//apps.shareaholic.com/assets/pub/shareaholic.js" data-shr-siteid="fd1ffa7fd7152e4e20568fbe49a489d0"></script>
+	
+	
+	<meta name="generator" content="Hugo 0.53" />
+	<meta property="og:title" content="Automated File Downloader With Python, Chromedriver and Selenium" />
+<meta property="og:description" content="I will show how you can download one year stock price data from yahoo finance for multiple companies using their ticker symbols." />
+<meta property="og:type" content="article" />
+<meta property="og:url" content="https://opokualbert.com/blog/2019/10/08/downloadfile/" />
+<meta property="og:image" content="https://opokualbert.com/images/downloadfile/floppydisk.jpg" />
+<meta property="article:published_time" content="2019-10-08T00:00:00&#43;00:00"/>
+<meta property="article:modified_time" content="2019-10-08T00:00:00&#43;00:00"/>
+
+	<meta name="twitter:card" content="summary_large_image"/>
+<meta name="twitter:image" content="https://opokualbert.com/images/downloadfile/floppydisk.jpg"/>
+
+<meta name="twitter:title" content="Automated File Downloader With Python, Chromedriver and Selenium"/>
+<meta name="twitter:description" content="I will show how you can download one year stock price data from yahoo finance for multiple companies using their ticker symbols."/>
+
+
+	<link rel="dns-prefetch" href="//fonts.googleapis.com">
+	<link rel="dns-prefetch" href="//fonts.gstatic.com">
+	<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Open+Sans:400,400i,700">
+	<link rel="stylesheet" href="/css/style.css">
+	<link rel="stylesheet" href="/css/custom.css">
+	<!-- <link rel="icon" type="image/png" sizes="32x32" href="/favicon-32x32.png"> 
+	<link rel="icon" type="image/png" sizes="96x96" href="/favicon-96x96.png">
+	<link rel="icon" type="image/png" sizes="16x16" href="/favicon-16x16.png"> -->
+	
+	
+		
+<script type="application/javascript">
+var doNotTrack = false;
+if (!doNotTrack) {
+	window.ga=window.ga||function(){(ga.q=ga.q||[]).push(arguments)};ga.l=+new Date;
+	ga('create', 'UA-54777926-1', 'auto');
+	
+	ga('send', 'pageview');
+}
+</script>
+<script async src='https://www.google-analytics.com/analytics.js'></script>
+
+	
+	<script>(function(w,d,s,l,i){w[l]=w[l]||[];w[l].push({'gtm.start':
+	new Date().getTime(),event:'gtm.js'});var f=d.getElementsByTagName(s)[0],
+	j=d.createElement(s),dl=l!='dataLayer'?'&l='+l:'';j.async=true;j.src=
+	'https://www.googletagmanager.com/gtm.js?id='+i+dl;f.parentNode.insertBefore(j,f);
+	})(window,document,'script','dataLayer','GTM-NMQD44T');</script>
+	
+
+	
+	<script>
+	  !function(f,b,e,v,n,t,s)
+	  {if(f.fbq)return;n=f.fbq=function(){n.callMethod?
+	  n.callMethod.apply(n,arguments):n.queue.push(arguments)};
+	  if(!f._fbq)f._fbq=n;n.push=n;n.loaded=!0;n.version='2.0';
+	  n.queue=[];t=b.createElement(e);t.async=!0;
+	  t.src=v;s=b.getElementsByTagName(e)[0];
+	  s.parentNode.insertBefore(t,s)}(window, document,'script',
+	  'https://connect.facebook.net/en_US/fbevents.js');
+	  fbq('init', '1062344757288542');
+	  fbq('track', 'PageView');
+	</script>
+	<noscript><img height="1" width="1" style="display:none"
+	  src="https://www.facebook.com/tr?id=1062344757288542&ev=PageView&noscript=1"
+	/></noscript>
+	
+
+
+	
+  	<script async>(function(s,u,m,o,j,v){j=u.createElement(m);v=u.getElementsByTagName(m)[0];j.async=1;j.src=o;j.dataset.sumoSiteId='22863fd8ad7ebbfab9b8ca60b7db8f65e9a15559f384f785f66903e365aa8f48';v.parentNode.insertBefore(j,v)})(window,document,'script','//load.sumo.com/');</script>
+  	<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-AMS-MML_HTMLorMML">
+  MathJax.Hub.Config({
+  tex2jax: {
+    inlineMath: [['$','$'], ['\\(','\\)']],
+    displayMath: [['$$','$$']],
+    processEscapes: true,
+    processEnvironments: true,
+    skipTags: ['script', 'noscript', 'style', 'textarea', 'pre'],
+    TeX: { equationNumbers: { autoNumber: "AMS" },
+         extensions: ["AMSmath.js", "AMSsymbols.js"] }
+  }
+  });
+  MathJax.Hub.Queue(function() {
+    
+    
+    
+    var all = MathJax.Hub.getAllJax(), i;
+    for(i = 0; i < all.length; i += 1) {
+        all[i].SourceElement().parentNode.className += ' has-jax';
+    }
+  });
+
+  MathJax.Hub.Config({
+  
+  TeX: { equationNumbers: { autoNumber: "AMS" } }
+  });
+</script>
+</head>
+<body class="body">
+	  
+	  <noscript><iframe src="https://www.googletagmanager.com/ns.html?id=GTM-NMQD44T"
+	  height="0" width="0" style="display:none;visibility:hidden"></iframe></noscript>
+	  
+	<div class="container container--outer">
+		<header class="header">
+	<div class="container">
+		<div class="logo">
+
+			<a class="logo__link" href="/" title="Albert Opoku" rel="home">
+
+				<div class="logo__title">Albert Opoku</div>
+				<div class="logo__tagline">Data Science, ML, Deep Learning, NLP</div>
+			</a>
+		</div>
+		
+<nav class="menu">
+	<button class="menu__btn" aria-haspopup="true" aria-expanded="false" tabindex="0">
+		<span class="menu__btn-title" tabindex="-1">Menu</span>
+	</button>
+	<ul class="menu__list">
+		<li class="menu__item">
+			<a class="menu__link" href="/">Blog</a>
+		</li>
+		<!--<li class="menu__item">
+			<a class="menu__link" href="/archive">Archive</a>
+		</li>-->
+		<li class="menu__item">
+			<a class="menu__link" href="/about/">About Me</a>
+		</li>
+		<li class="menu__item">
+			<a class="menu__link" href="/nlpseries/">Resources</a>
+		</li>
+		<!--<li class="menu__item">
+			<a class="menu__link" href="/atom.xml">RSS</a>
+		</li>-->
+	</ul>
+</nav>
+
+	</div>
+</header>
+
+
+		<div class="wrapper flex">
+			<div class="primary">
+			
+<main class="main" role="main">
+	<article class="post">
+		<header class="post__header">
+			<h1 class="post__title">Automated File Downloader With Python, Chromedriver and Selenium</h1>
+			<div class="post__meta meta">
+<div class="meta__item-datetime meta__item">
+	<svg class="meta__icon icon icon-time" width="16" height="14" viewBox="0 0 30 28"><path d="M15 0C7 0 1 6 1 14s6 14 14 14 14-6 14-14S23 0 15 0zm0 25C9 25 4 20 4 14S9 3 15 3s11 5 11 11-5 11-11 11zm1-18h-2v8.4l6.8 4.4L22 18l-6-3.8V7z"/></svg>
+	<time class="meta__text" datetime="2019-10-08T00:00:00">October 08, 2019</time>
+</div>
+</div>
+		</header>
+		<div class="content post__content clearfix">
+			
+
+<p><img src="/images/downloadfile/floppydisk.jpg" alt="" /></p>
+
+<p>
+	Downloading a single file from a website is simply easy and does not require a tutorial whatsoever. 
+	Where it becomes a daunting task is when you need to download multiple files of say hundreds or thousands. 
+	For most employees, a big percentage of their daily tasks involve downloading files and then the files are 
+	stitched together for a report or analysis.
+</p>
+
+<p>
+	In this short tutorial, I will show how you can download one year stock price data from yahoo finance for 
+	multiple companies using their ticker symbols. Python, chromedriver and selenium package were used to automate 
+	this process. You could use the same code to download any other file type. 
+</p>
+
+<p>If you want to try your hands on the process copy the code from my 
+	<a href="https://github.com/opokualbert/Python-Automated-File-Downloader"><strong>Github page.</strong></a> Credit to Artur Spirin, this post was inspired by his tutorial.</p>
+
+<p>You need to download chromdriver from here 
+	<a href="https://chromedriver.chromium.org/downloads"><strong>chromedriver</strong></a> and save it in your directory Change the tickers list to as many stock tickers
+	 you want to download the stock price for and that is it.</p>
+		
+<hr />
+
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+<span style="color:#f92672">from</span> selenium <span style="color:#f92672">import</span> webdriver
+<span style="color:#f92672">from</span> selenium.webdriver.common.by  <span style="color:#f92672">import</span> By
+options  <span style="color:#f92672">=</span> webdriver.ChromeOptions()
+<span style="color:#75715e"># Change this to your default downloading folder r"C:\Users\alber\selenium\download_files"</span>
+preferences  <span style="color:#f92672">=</span> {"download.default_directory": r"C:\Users\alber\selenium\download_files", "safebrowsing.enabled": "false"}
+options  <span style="color:#f92672">.</span> add_experimental_option("prefs", preferences)
+driver <span style="color:#f92672">=</span> webdriver.Chrome(options=options)
+tickers <span style="color:#f92672">=</span> ['AAN','AMP','BAC','C','CAT','CINF','CMI','DFS','HUM','MCK','TECD','TSN','URI','PYPL','AYX']
+
+<span style="color:#66d9ef">for</span>ticker<span style="color:#a6e22e">in</span>tickers:
+    driver <span style="color:#f92672">.</span> get("https://finance.yahoo.com/quote/" +ticker+ "/history?p="+ticker)
+    eval_set  <span style="color:#f92672">.</span> find_element(By.XPATH, '//*[@id="Col1-1-HistoricalDataTable-Proxy"]/section/div[1]/div[2]/span[2]/a').click()
+
+</div>
+<p>In case duplicate files are downloaded, use the code below to remove the duplicate files from the folder.</p>
+
+<div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+<span style="color:#f92672">import</span> os
+file_path  <span style="color:#f92672">=</span> r"C:\Users\alber\selenium\download_files"
+file_list  <span style="color:#f92672">=</span>os.listdir(file_path)"
+<span style="color:#75715e"># print (file_list)</span>	
+<span style="color:#66d9ef">for</span> file_name <span style="color:#f92672">in</span> file_list:
+	<span style="color:#66d9ef">if</span> " (1)" <span style="color:#f92672">not in</span> file_name:
+	    continue
+	original_file_name <span style="color:#f92672">=</span> file_name.replace(' (1)', '')
+	<span style="color:#66d9ef">if</span>not</span> os.path.exists(os.path.join(file_path, original_file_name)):
+	    continue
+		os<span style="color:#f92672">.</span> remove(os.path.join(file_path, file_name))
+
+		</div>
+		
+<div class="shareaholic-canvas" data-app="share_buttons" data-app-id="28372088"></div>
+<a href="https://click.linksynergy.com/fs-bin/click?id=lVarvwc5BD0&offerid=467035.415&subid=0&type=4"><IMG border="0"   alt="Deep Learning Specialization on Coursera" src="https://ad.linksynergy.com/fs-bin/show?id=lVarvwc5BD0&bids=467035.415&subid=0&type=4&gridnum=16"></a>
+
+
+	</article>
+</main>
+
+<!--
+<nav class="post-nav flex">
+	<div class="post-nav__item post-nav__item--prev">
+		<a class="post-nav__link" href="/blog/2019/09/26/building_ml_system/" rel="prev"><span class="post-nav__caption">«&thinsp;Previous</span><p class="post-nav__post-title">6 Important Steps to build  a Machine Learning System</p></a>
+	</div>
+</nav>
+
+<section class="comments">
+	<div id="disqus_thread"></div>
+<script type="application/javascript">
+    var disqus_config = function () {
+    
+    
+    
+    };
+    (function() {
+        if (["localhost", "127.0.0.1"].indexOf(window.location.hostname) != -1) {
+            document.getElementById('disqus_thread').innerHTML = 'Disqus comments not available by default when the website is previewed locally.';
+            return;
+        }
+        var d = document, s = d.createElement('script'); s.async = true;
+        s.src = '//' + "mlwhiz" + '.disqus.com/embed.js';
+        s.setAttribute('data-timestamp', +new Date());
+        (d.head || d.body).appendChild(s);
+    })();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
+<a href="https://disqus.com" class="dsq-brlink">comments powered by <span class="logo-disqus">Disqus</span></a>
+</section>
+
+
+			</div>
+			<aside class="sidebar">
+	     
+  <div style="text-align:center">    
+  <a href='https://ko-fi.com/S6S3NPCD' target='_blank'><img height='36' style='border:0px;height:36px;' src='https://az743702.vo.msecnd.net/cdn/kofi4.png?v=0' border='0' alt='Buy Me a Coffee at ko-fi.com' /></a>
+  </div>
+  <br><div class="widget-search widget">
+	<form class="widget-search__form" role="search" method="get" action="https://google.com/search">
+		<label>
+			<input class="widget-search__field" type="search" placeholder="SEARCH..." value="" name="q" aria-label="SEARCH...">
+		</label>
+		<input class="widget-search__submit" type="submit" value="Search">
+		<input type="hidden" name="sitesearch" value="https://mlwhiz.com/" />
+	</form>
+</div>
+-->
+<!--<div class="widget-recent widget">
+	<h4 class="widget__title">Recent Posts</h4>
+	<div class="widget__content">
+		<ul class="widget__list">
+			<li class="widget__item"><a class="widget__link" href="/blog/2019/10/10/hyperopt2/">Automate Hyperparameter Tuning for your models</a></li>
+			<li class="widget__item"><a class="widget__link" href="/blog/2019/09/26/building_ml_system/">6 Important Steps to build  a Machine Learning System</a></li>
+			<li class="widget__item"><a class="widget__link" href="/blog/2019/09/23/generative_approach_to_classification/">A Generative Approach to Classification</a></li>
+			<li class="widget__item"><a class="widget__link" href="/blog/2019/09/02/graph_algs/">Data Scientists, The 5 Graph Algorithms that you should know</a></li>
+			<li class="widget__item"><a class="widget__link" href="/blog/2019/09/01/regex/">The Ultimate Guide to using the Python regex module</a></li>
+			<li class="widget__item"><a class="widget__link" href="/blog/2019/08/12/resources/">How did I learn Data Science?</a></li>
+			<li class="widget__item"><a class="widget__link" href="/blog/2019/08/07/feature_selection/">The 5 Feature Selection Algorithms every Data Scientist should know</a></li>
+			<li class="widget__item"><a class="widget__link" href="/blog/2019/07/30/sampling/">The 5 Sampling Algorithms every Data Scientist need to know</a></li>
+			<li class="widget__item"><a class="widget__link" href="/blog/2019/07/21/bandits/">Bayesian Bandits explained simply</a></li>
+			<li class="widget__item"><a class="widget__link" href="/blog/2019/07/20/pandas_subset/">Minimal Pandas Subset for Data Scientists</a></li>
+		</ul>
+	</div>
+</div>-->
+
+<!--
+<div class="shareaholic-canvas" data-app="follow_buttons" data-app-id="28033293" style="white-space: inherit;"></div>
+
+
+<link href="//cdn-images.mailchimp.com/embedcode/slim-10_7.css" rel="stylesheet" type="text/css">
+
+
+<style type="text/css">
+  #mc_embed_signup .button {background-color: #127edc;}
+  #mc_embed_signup form .center{
+    display: block;
+    position: relative;
+    text-align: center;
+    padding: 10px -5px 10px 3%;}
+   
+</style>
+<div id="mc_embed_signup">
+<form action="//mlwhiz.us15.list-manage.com/subscribe/post?u=4e9962f4ce4a94818bcc2f249&amp;id=87a48fafdd" method="post" id="mc-embedded-subscribe-form" name="mc-embedded-subscribe-form" class="validate" target="_blank" novalidate>
+    <div id="mc_embed_signup_scroll">
+    <input type="email" value="" name="EMAIL" class="email" id="mce-EMAIL" placeholder="email address" required>
+    
+    <div style="position: absolute; left: -5000px;" aria-hidden="true"><input type="text" name="b_4e9962f4ce4a94818bcc2f249_87a48fafdd" tabindex="-1" value=""></div>
+    <div class="clear"><input type="submit" value="Subscribe" name="subscribe" id="mc-embedded-subscribe" class="button"></div>
+    </div>
+</form>
+</div>
+
+</aside>
+		</div>-->
+		<footer class="footer">
+	<div class="container footer__container flex">
+		
+		<div class="footer__copyright">
+			&copy;  2018-2019 Albert Opoku.
+			<span class="footer__copyright-credits">Generated with <a href="https://gohugo.io/" rel="nofollow noopener" target="_blank">Hugo</a> and <a href="https://github.com/Vimux/Mainroad/" rel="nofollow noopener" target="_blank">Mainroad</a> theme.</span>
+		</div>
+	</div>
+</footer>
+
+
+
+	</div>
+<script src="//z-na.amazon-adsystem.com/widgets/onejs?MarketPlace=US&adInstanceId=93f2f4f9-cf51-415d-84af-08cbb74b178f"></script>
+<script async defer src="/js/menu.js"></script></body>
+</html>
