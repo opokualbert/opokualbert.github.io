@@ -209,7 +209,7 @@ tickers <span style="color:#f92672">=</span> ['AAN','AMP','BAC','C','CAT','CINF'
 <span style="color:#66d9ef">for</span> ticker <span style="color:#a6e22e"> in </span> tickers:
     driver<span style="color:#f92672">.</span>get("https://finance.yahoo.com/quote/" +ticker+ "/history?p="+ticker)
     eval_set<span style="color:#f92672">.</span>find_element(By.XPATH, '//*[@id="Col1-1-HistoricalDataTable-Proxy"]/section/div[1]/div[2]/span[2]/a').click()
-
+</pre>
 </div>
 <p>In case duplicate files are downloaded, use the code below to remove the duplicate files from the folder.</p>
 
@@ -225,7 +225,7 @@ file_list  <span style="color:#f92672">=</span>os.listdir(file_path)"
 	<span style="color:#66d9ef">if</span> not </span> os.path.exists(os.path.join(file_path, original_file_name)):
 	    continue
 		os<span style="color:#f92672">.</span>remove(os.path.join(file_path, file_name))
-
+	</pre>
 		</div>
 		
 <div class="shareaholic-canvas" data-app="share_buttons" data-app-id="28372088"></div>
