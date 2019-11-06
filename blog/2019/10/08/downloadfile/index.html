@@ -206,14 +206,15 @@ options <span style="color:#f92672">.</span>add_experimental_option("prefs", pre
 driver <span style="color:#f92672">=</span> webdriver.Chrome(options=options)
 tickers <span style="color:#f92672">=</span> ['AAN','AMP','BAC','C','CAT','CINF','CMI','DFS','HUM','MCK','TECD','TSN','URI','PYPL','AYX']
 
-<span style="color:#66d9ef">for</span> ticker <span style="color:#a6e22e"> in </span> tickers:
+<span style="color:#66d9ef">for</span> ticker <span style="color:#a6e22e">in</span> tickers:
     driver<span style="color:#f92672">.</span>get("https://finance.yahoo.com/quote/" +ticker+ "/history?p="+ticker)
     eval_set<span style="color:#f92672">.</span>find_element(By.XPATH, '//*[@id="Col1-1-HistoricalDataTable-Proxy"]/section/div[1]/div[2]/span[2]/a').click()
 </pre>
 </div>
-<p>In case duplicate files are downloaded, use the code below to remove the duplicate files from the folder.</p>
-</div>
+
+
 <div class="highlight"><pre style="color:#f8f8f2;background-color:#272822;-moz-tab-size:4;-o-tab-size:4;tab-size:4"><code class="language-py" data-lang="py">
+<span style="color:#75715e"># In case duplicate files are downloaded, use the code below to remove the duplicate files from the folder.
 <span style="color:#f92672">import</span> os
 file_path  <span style="color:#f92672">=</span> r"C:\Users\alber\selenium\download_files"
 file_list  <span style="color:#f92672">=</span>os.listdir(file_path)"
