@@ -1,0 +1,1663 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="description" content="">
+    <meta name="author" content="">
+
+    <title>Training a domain specific Word2Vec word embedding model with Gensim</title>
+
+    <!-- Bootstrap core CSS -->
+    <link href="vendor/bootstrap/css/bootstrap.min.css" rel="stylesheet">
+
+    <!-- Custom fonts for this template -->
+    <link href="vendor/font-awesome/css/font-awesome.min.css" rel="stylesheet" type="text/css">
+    <link href='https://fonts.googleapis.com/css?family=Lora:400,700,400italic,700italic' rel='stylesheet' type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Open+Sans:300italic,400italic,600italic,700italic,800italic,400,300,600,700,800' rel='stylesheet' type='text/css'>
+
+    <!-- Custom styles for this template -->
+    <link href="css/clean-blog.min.css" rel="stylesheet">
+    
+    <!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-125724120-1"></script>
+<script>
+  window.dataLayer = window.dataLayer || [];
+  function gtag(){dataLayer.push(arguments);}
+  gtag('js', new Date());
+
+  gtag('config', 'UA-125724120-1');
+</script>
+
+
+  </head>
+
+  <body>
+
+    <!-- Navigation -->
+    <div class="wrapper-masthead"> 
+<br>
+    <nav class="navbar navbar-expand-lg navbar-light fixed-top", style="background-color: grey;" id="mainNav">
+      <div class="container">
+        <a class="navbar-brand" href="index.html">All Posts</a>
+        <button class="navbar-toggler navbar-toggler-right" type="button" data-toggle="collapse" data-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
+          Menu
+          <i class="fa fa-bars"></i>
+        </button>
+        <div class="collapse navbar-collapse" id="navbarResponsive">
+          <ul class="navbar-nav ml-auto">
+            <li class="nav-item">
+              <a class="nav-link" href="index.html">Home</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="about.html">About</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="post.html">Current Post</a>
+            </li>
+            <li class="nav-item">
+              <a class="nav-link" href="contact.html">Contact</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+    </nav>
+    </div>
+    <br>
+    
+                    <!-- Page Header -->
+
+     <div id="seleniumr"></div>
+
+
+    <!-- Post Content -->
+    <div class="container">
+    <article>
+ 
+
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p><p/>
+           <p>
+                     <div class="row">
+               <div class="post-heading">
+              <h2>Automated File Downloader</h2>
+              <h5 class="subheading">With Python, Chromedriver and Selenium</h3>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on October 08, 2019</span>
+                 <a href="#">
+ <img class="img-fluid" src="img/floppydisk.jpg" alt="">
+ </a>
+            </div>
+                       </p>
+            <p>
+Downloading a single file from a website is simply easy and does not require a tutorial whatsoever. Where it becomes a daunting task 
+is when you need to download multiple files of say hundreds or thousands. For most employees, 
+a big percentage of their daily tasks involve downloading files and then the files are stitched together for a report or analysis.          
+      
+            </p>
+
+    <p>
+In this short tutorial, I will show how you can download one year stock price data from yahoo finance for multiple companies using their ticker symbols. Python, chromedriver and selenium package were used to automate this process. 
+You could use the same code to download any other file type.
+    </p>
+           
+ <p>
+If you want to try your hands on the process copy the code from my. 
+<a href="https://github.com/opokualbert/Python-Automated-File-Downloader">Github page.</a>
+Credit to Artur Spirin, this post was inspired by his tutorial.
+ </p>
+ 
+
+<p>You need to download chromdriver from here <a href="https://chromedriver.chromium.org/downloads">chromedriver</a> 
+ and save it in your directory
+ Change the tickers list to as many stock tickers you want to download the stock price for and that is it</p>
+<pre class="pre-scrollable">
+from selenium import webdriver
+from selenium.webdriver.common.by import By
+
+options = webdriver.ChromeOptions()
+
+#Change this to your default downloading folder r"C:\Users\alber\selenium\download_files"
+preferences = {"download.default_directory": r"C:\Users\alber\selenium\download_files", "safebrowsing.enabled": "false"}
+
+options.add_experimental_option("prefs", preferences)
+
+driver = webdriver.Chrome(options=options)
+
+tickers= ['AAN','AMP','BAC','C','CAT','CINF','CMI','DFS','HUM','MCK','TECD','TSN','URI','PYPL','AYX']
+
+for ticker in tickers:
+    driver.get("https://finance.yahoo.com/quote/" +ticker+ "/history?p="+ticker)
+
+    driver.find_element(By.XPATH, '//*[@id="Col1-1-HistoricalDataTable-Proxy"]/section/div[1]/div[2]/span[2]/a').click() 
+</pre>
+            
+<p>
+  In case duplicate files are downloaded, use the code below to remove the duplicate files from the folder. 
+ </p>
+<pre class="pre-scrollable">     
+import os
+
+file_path = r"C:\Users\alber\selenium\download_files"
+file_list = os.listdir(file_path)
+# print (file_list)
+for file_name in file_list:
+    if " (1)" not in file_name:
+        continue
+    original_file_name = file_name.replace(' (1)', '')
+    if not os.path.exists(os.path.join(file_path, original_file_name)):
+        continue  # do not remove files which have no original
+    os.remove(os.path.join(file_path, file_name))
+ </pre> 
+      
+
+
+         </div>
+        </div>
+     
+  </article>
+ </div>
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupmachinelearning">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2019</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+  
+                <!-- Page Header -->
+
+     <div id="ocr_ner"></div>
+
+
+    <!-- Post Content -->
+    <div class="container">
+    <article>
+ 
+
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p><p/>
+           <p>
+                     <div class="row">
+               <div class="post-heading">
+              <h2>PDF OCR and Named Entity Recognition:</h2>
+              <h3 class="subheading">Whistleblower Complaint - President Trump and President Zelensky</h3>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on September 26, 2019</span>
+                 <a href="#">
+ <img class="img-fluid" src="img/kristina-flour-BcjdbyKWquw-unsplash.jpg" alt="">
+ </a>
+            </div>
+                       </p>
+            <p>
+ In this short post we are going to retrieve all the entities in the "whistleblower complaint regarding President Trump's 
+ communications with Ukrainian President Volodymyr Zelensky" that was unclassified and made public today.           
+      
+            </p>
+
+    <p>
+    I apply the techniques in my two previous blog posts, that is PDF OCR and named entity recognition. Instead of reading through the 16 pages to extract the names, dates, 
+    and organizations mentioned in the complaint, we will use natural language processing as a tool to automate this task .
+    </p>
+           
+ <p>
+If any of the techniques we are using is not familiar to you, refer to my blog posts
+<a href="https://opokualbert.com/post.html#ocr">Creating a Searchable Database with Text Extracted from Scanned Pdfs or Images</a> 
+and
+<a href="https://opokualbert.com/post.html#spacy_ner">Named Entity Recognition With Spacy Python Package.</a>
+ 
+ <p>
+The PDF we are using is published on 
+<a href="https://www.washingtonpost.com/context/read-the-whistleblower-complaint-regarding-president-trump-s-communications-with-ukrainian-president-volodymyr-zelensky/4b9e0ca5-3824-467f-b1a3-77f2d4ee16aa/">Washington Post.</a>
+You can download and save to your directory but for this project, 
+I decided to make every bit of the process automated. 
+I used urllib python package to download the pdf. The entire code can be found on my
+<a href="https://github.com/opokualbert/PDF-OCR-and-Named-Entity-Recognition">GitHub page.</a>
+
+ </p>
+ 
+
+<p>We import all the needed python packages  .</p>
+<pre class="pre-scrollable">
+from PIL import Image
+import pytesseract
+import pandas as pd
+import io
+from wand.image import Image as wi
+
+pd.set_option('max_colwidth', 2000)
+pd.options.display.max_rows = 500
+import pandas as pd
+
+#First install tesseract-ocr from this link https://github.com/UB-Mannheim/tesseract/wiki
+#Then add this line for tesseract ocr to work
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
+</pre>
+            
+<p>
+  Downloading the PDF from Washington Post using urllib instead of manual download. 
+ </p>
+<pre class="pre-scrollable">     
+from urllib.request import Request, urlopen 
+import requests  
+url="https://games-cdn.washingtonpost.com/notes/prod/default/documents/3b5487de-f987-4cef-b59b-c29bb67687ac/note/ef3465c1-465b-4e68-9b36-08b5946b0df4.pdf#page=1"  
+import urllib.request  
+req = urllib.request.Request(url, headers={'User-Agent': 'Mozilla/5.0'})  
+r = requests.get(url)
+
+with open("trump_ukrain.pdf", "wb") as code:
+    code.write(r.content)
+ </pre> 
+      
+<p>These few lines of code import the pdf we downloaded, convert the file to images and then extract the text in the images. 
+ The resolution you set has an effect on the performance of the code. Higher resolution is better but makes the code slow.</p>
+<pre class="pre-scrollable">
+pdf = wi(filename = "trump_ukrain.pdf", resolution = 300)
+pdfImg = pdf.convert('jpeg')
+
+imgBlobs = []
+
+for img in pdfImg.sequence:
+    page = wi(image = img)
+    imgBlobs.append(page.make_blob('jpeg'))
+
+extracted_text = []
+
+for imgBlob in imgBlobs:
+    im = Image.open(io.BytesIO(imgBlob))
+    text = pytesseract.image_to_string(im, lang = 'eng')
+    extracted_text.append(text)
+
+print('Done extracting text')
+
+</pre>
+
+<p>
+ Save the extracted text to a dataframe and print the text.
+</p>
+<pre class="pre-scrollable">
+df = pd.DataFrame(extracted_text,columns =['Page_Text'])\
+.replace(r'\n',' ', regex=True)
+df
+</pre>
+      
+
+ <h3 class="section-heading">Named Entity Recognition.</h3>
+
+<pre class="pre-scrollable">
+#Import spacy to extract the data from the text file
+import spacy
+import pandas as pd
+pd.set_option('max_colwidth', 2000)
+pd.options.display.max_rows = 500
+
+
+</pre>
+ 
+<p>
+ These few lines of code loads the spacy large english core language model, loads and parse the text file we are trying to 
+  analyse and 
+  assign to spacy object named doc. We also take a look at the content of the document loaded.
+</p>
+<pre class="pre-scrollable">
+nlp = spacy.load('en_core_web_lg')
+doc = nlp(df['Page_Text'].to_string())
+doc
+</pre>
+
+
+<p>
+ We use a for loop to extract the words, their entities as determined by 
+spacy and the description of each of the entities and put them into a list called table. We will show only the date, organizations, 
+persons, time and work_of_art. See how spacy think "The Honorable Adam Schiff" is a piece of art. NLP is not hundred percent perfect yet.
+</p>
+<pre class="pre-scrollable">
+# Get the entities, labels and explaination to the labels
+table = []
+for ent in doc.ents:
+    table.append([ent.text,ent.label_,spacy.explain(ent.label_)])
+    
+# Creat a dataframe from the list created above
+df2 = pd.DataFrame(table, columns=['Entity', 'Label','Label_Description']).sort_values(by=['Label'])
+print(df2.shape)
+
+#filter for Date, org, person, time and work_of_art and dedupe
+df3= df2[df2['Label'].isin(['DATE','ORG','PERSON','TIME','WORK_OF_ART'])]
+print(df3.shape)
+df4=df3.drop_duplicates(subset=None, keep='first',inplace= False)
+print(df4.shape)
+df4
+</pre>
+<p>
+<a href="#">
+ <img class="img-fluid" src="img/entities_df.JPG" alt="">
+ </a>
+ </p>
+ 
+<p>
+ Spacy also gives additional methods to describe or explain what the labels represent. 
+ And if you so desire, you can also visualize the entities in the text document. 
+</p>
+<p>
+<a href="#">
+ <img class="img-fluid" src="img/entity_displacy.JPG" alt="">
+ </a>
+ </p>
+
+         </div>
+        </div>
+     
+  </article>
+ </div>
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupmachinelearning">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2019</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+    
+    
+ 
+            <!-- Page Header -->
+
+     <div id="domain_word2vec"></div>
+
+
+    <!-- Post Content -->
+    <div class="container">
+    <article>
+ 
+
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p><p/>
+           <p>
+                     <div class="row">
+               <div class="post-heading">
+              <h2>Training a domain specific Word2Vec word embedding model with Gensim</h2>
+              <h3 class="subheading">Improve your text search and classification results - Natural Language Processing</h3>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on August 25, 2019</span>
+                 <a href="#">
+ <img class="img-fluid" src="img/sebastian-staines-xZIFEPtRsRI-unsplash.jpg" alt="">
+ </a>
+            </div>
+                       </p>
+            <p>
+ In this post, I will show how to train your own domain specific Word2Vec model using your own data. There are powerful, 
+              off the shelf embedding models built by the likes of Google (Word2Vec), Facebook (FastText) and Stanford (Glove) 
+              because they have the resources to do it and as a result of years research. These models that were trained on huge 
+              corpus generally perform well but there are times they fail on specific tasks in industries like health, finance and legal. 
+              There are two approaches to solve this problem. First, train your own embeddings if you have enough data of over 
+              a million text documents and the compute power. Two, fine-tune one of the listed models above with your data, especially, 
+              when your data is small (I will post a follow up blog to show how to fine-tune word2vec models).           
+      
+            </p>
+
+    <p>
+    Word2Vec assumes two words that have the same context will also share the same meaning and therefore, both 
+    words will have similar vector representation. The vector of a word is a semantic representation of 
+    how that word is used in context. Being able to represent words as dense vectors is 
+    the core of the successes registered in the application of deep learning to NLP in recent times.
+    <a href="#">
+              <img class="img-fluid" src="img/a_word_by.JPG" alt="">
+            </a>
+    </p>
+           
+ <p>
+Word2vec utilizes two model architectures, continuous bag-of-words (CBOW) or continuous skip-gram. 
+         For models that use continuous bag-of-words, a current word is predicted from a window of surrounding context words. 
+         In other words, you hide the target word and use the surrounding words to predict the hidden word. 
+         The order of surrounding words does not influence prediction. 
+ <p>
+      In the case of continuous skip-gram architecture, the current word in the model is used  to predict the 
+             surrounding window of the context words. The skip-gram architecture gives more weight to nearby words than distant words. 
+             CBOW is faster than skip-gram but skip-gram performs better when it comes to infrequent words.
+ </p>
+ <p>
+ Before Word2Vec became popular, one hot encoding which has sparsity problem, where most of the rows will be zeros for a 
+ very wide dimension. The dimension is the same as the number of words in the corpus. Each word will represent a column. 
+ This is very expensive for computation. 
+ Word2Vec solved this problem by representing each word as mostly 300 dimension space.
+ <a href="#">
+ <img class="img-fluid" src="img/vectors.JPG" alt="">
+ </a>
+ </p>
+
+            </p>
+            <p>
+After converting words to vector representations, math can be done on the vectors. 
+You could find answers to analogy questions like:
+
+          <p> Columbus is to Ohio as what is to Illinois?</p>
+
+<p>word vector(Columbus) - word vector(Ohio) + word vector(Illinois) = Chicago</p>
+
+<p>
+Or the popular one:</p>
+
+<p>word vector(King) - word vector(Man) + word vector(woman)   is Queen.</p>
+          
+<p>
+From the code example for our domain specific model, we are able to find the most similar words to foreclosure. 
+  If you are familiar with the mortgage industry, you will notice most of the words on the list are real estate related. 
+  This is not the best results because we trained the model on only 66k documents instead of over a million documents required. 
+  This is a good thing for our future comparison because we will use the same 66k documents in our next project to proof 
+  that when your data is small, 
+  fine-tuning an existing embedding is the way to go. 
+   <a href="#">
+ <img class="img-fluid" src="img/foreclosure.JPG" alt="">
+ </a>
+</p>
+          
+<p>If you need to read more about Word2vec and embeddings, this is a good article on  
+  <a href="https://www.kdnuggets.com/2019/02/word-embeddings-nlp-applications.html">kdnuggets</a>
+          or this fantastic podcast by 
+  <a href="http://dataskeptic.com/blog/episodes/2019/word2vec">Data Skeptic.</a></p></p>          
+<p>The complete code is saved on 
+  <a href="https://github.com/opokualbert/Domain_Specific_Word2Vec_Word_Embedding_Model_with_Gensim">Github.</a></p></p> 
+ 
+
+<p>We import all the needed python packages  .</p>
+<pre class="pre-scrollable">
+import re  # For preprocessing
+import pandas as pd  # For data handling
+from time import time  # To time our operations
+from collections import defaultdict  # For word frequency
+from nltk.tokenize import RegexpTokenizer
+import multiprocessing
+
+from gensim.models import Word2Vec
+
+import logging  # Setting up the loggings to monitor gensim
+logging.basicConfig(format="%(levelname)s - %(asctime)s: %(message)s", datefmt= '%H:%M:%S', level=logging.INFO)
+pd.set_option('max_colwidth', 1000)
+pd.options.display.max_rows = 500
+</pre>
+<p>Load the pickle file that contains the text documents. This file is a subset of the CFPB data from kaggle, which was used in some of my 
+  previous posts.
+  I am also reseting the index, showing the numer of columns and taking a look at the top 5 documents.</p>
+<pre class="pre-scrollable">     
+  df = pd.read_pickle('df_orig.pkl')
+  df=df.reset_index(drop=True)
+  df.shape
+  df.head() 
+ </pre> 
+      
+<p>The lines of code below are for cleaning the text and to tokenize into words.</p>
+<pre class="pre-scrollable">
+df['clean'] = df['consumer_complaint_narrative'].str.replace('X', '')
+df['clean'] = df['clean'].str.replace('\n', '')
+
+df = df.dropna().drop_duplicates()
+df_clean= df[['clean']]
+df_clean.head()
+
+sentences = df_clean.clean.astype('str').tolist()
+sentences[0]
+
+tokenizer = RegexpTokenizer(r'\w+')
+sentences_tokenized = [w.lower() for w in sentences]
+sentences_tokenized = [tokenizer.tokenize(i) for i in sentences_tokenized]
+sentences_tokenized[0]
+
+</pre>
+
+<p>
+ Set the parameters and build the model for 5 epochs.
+</p>
+<pre class="pre-scrollable">
+w2v_model = Word2Vec(min_count=10,
+                     window=10,
+                     size=300,
+                     sample=6e-5, 
+                     alpha=0.03, 
+                     min_alpha=0.0007, 
+                     negative=20,
+                     workers=cores-1)
+t = time()
+
+w2v_model.build_vocab(sentences_tokenized, progress_per=10000)
+
+print('Time to build vocab: {} mins'.format(round((time() - t) / 60, 2)))                     
+t = time()
+
+w2v_model.train(sentences_tokenized, total_examples=w2v_model.corpus_count, epochs=5, report_delay=1)
+
+print('Time to train the model: {} mins'.format(round((time() - t) / 60, 2)))
+</pre>
+      
+<p>
+ Save the model for future use.
+</p>
+<pre class="pre-scrollable">
+w2v_model.wv.save_word2vec_format("cfpb_generic_word2vec.model")
+</pre>
+ 
+<p>
+ Use the model to find the top 20 most similar words to the word delinquent. 
+ See how the model is able to pick words that are misspelled.
+</p>
+<pre class="pre-scrollable">
+w2v_model.wv.most_similar(positive=["delinquent"],topn=20)
+</pre>
+<p>
+<a href="#">
+ <img class="img-fluid" src="img/deliquent.JPG" alt="">
+ </a>
+ </p>
+
+<p>
+ Use the model to find the top 20 most similar words to the word mod. 
+</p>
+<pre class="pre-scrollable">
+w2v_model.wv.most_similar(positive=["mod"],topn=20)
+</pre>
+<p>
+<a href="#">
+ <img class="img-fluid" src="img/mod.JPG" alt="">
+ </a>
+ </p>
+ 
+<p>
+ Use the model to find the top 20 most similar words to the state of ohio. 
+</p>
+<pre class="pre-scrollable">
+w2v_model.wv.most_similar(positive=["ohio"],topn=20)
+</pre>
+<p>
+<a href="#">
+ <img class="img-fluid" src="img/ohio.JPG" alt="">
+ </a>
+ </p>
+
+         </div>
+        </div>
+     
+  </article>
+ </div>
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupmachinelearning">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2019</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+    
+    
+    
+        <!-- Page Header -->
+     <div id="spacy_ner"></div>
+    <!-- Post Content -->
+
+    <div class="container">
+    <article>
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p><p/>
+           <p>
+                     <div class="row">
+               <div class="post-heading">
+              <h2>Named Entity Recognition With Spacy Python Package</h2>
+              <h3 class="subheading">Automated Information Extraction from Text - Natural Language Processing</h3>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on August 11, 2019</span>
+                 <a href="#">
+ <img class="img-fluid" src="img/levi-morsy-HPeyuY6SrUw-unsplash.jpg" alt="">
+ </a>
+            </div>
+                       </p>
+            
+            
+            
+            <p>In my <a href="https://opokualbert.com/post.html#ner">previous post</a>, I showed how you can get the entities in an article or 
+              text documents using natural language processing NER Package by Stanford NLP.</p>
+
+            <p>
+             In this post I will share how to do this in a few lines of code in Spacy and compare the results from the two packages. 
+              Named entity recognition is using natural language 
+              processing to pull out all entities like a person, organization, money, geo location, time and date from an article or documents.
+            </p>
+           
+            <p>
+              Spacy and Stanford NLP python packages both use part of speech tagging to identify which entity a word in the article 
+              should be assigned to. As I indicated in the previous post this is useful if you quickly need to gather the specific 
+              salient information about a very long document, example who contacted who at what time and at what place; and which 
+              organization do they work for or are they discussing? Was money involved in the dealings and how much? 
+              <p>
+              It turns out 
+              spacy is fast and also requires a few lines of code. In addition, spacy is more accurate in identifying entities 
+              compared to Stanford NLP NER at least for this particular dataset. 
+              Spacy also gives additional methods to describe or explain what the labels represent. 
+              And if you so desire, you can also visualize the entities in the text document.</p>
+            <a href="#">
+              <img class="img-fluid" src="img/Spacy_screensot.JPG" alt="">
+            </a>
+            </p>
+            <p>
+             For comparison purposes, I will use the same text I used in the earlier post. The text is from this article from techrunch. 
+             <a href="https://techcrunch.com/2019/06/21/african-fintech-dominates-catalyst-funds-2019-startup-cohort">
+              African fintech dominates Catalyst Fund’s 2019 startup cohort.</a> </p>
+<p>The complete code is saved on 
+  <a href="https://github.com/opokualbert/Named_Entity_Recognition_With_Spacy">Github.</a></p></p> 
+ 
+
+<p>We import Spacy and other packages  .</p>
+<pre class="pre-scrollable">
+import spacy
+import pandas as pd
+pd.set_option('max_colwidth', 2000)
+pd.options.display.max_rows = 500
+
+</pre>
+            
+<p>These few lines of code loads the spacy large english core language model, loads and parse the text file we are trying to 
+  analyse and 
+  assign to spacy object named doc. We also take a look at the content of the document loaded.</p>
+<pre class="pre-scrollable">
+nlp = spacy.load('en_core_web_lg')
+doc = nlp(open('African_Fintech.txt', encoding="utf8").read())
+doc
+</pre>
+      
+<p>
+We write a for loop to extract the words, their entities (level) as determined by 
+spacy and the description of each of the entities and put them into a list called table.
+</p>
+<pre class="pre-scrollable">
+table = []
+for ent in doc.ents:
+    table.append([ent.text,ent.label_,spacy.explain(ent.label_)])
+</pre>
+
+
+
+<p>
+ Let us convert the list into a pandas dataframe and take a look at the information we extracted. We also filter on the Lable column
+  to be able to compare the results with the Stanford Nlp results. Please pull the Stanford Nlp results from the previous post and compare.
+</p>
+<pre class="pre-scrollable">
+df2 = pd.DataFrame(table, columns=['Entity', 'Label','Label_Description']).sort_values(by=['Label'])
+print(df2)
+df2.loc[df2['Label'].isin(['PERSON','ORG','PERCENT','MONEY','LOCATION','GPE','DATE'])]
+</pre>
+         </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupmachinelearning">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2019</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+    
+        <!-- Page Header -->
+     <div id="ocr"></div>
+    <!-- Post Content -->
+
+    <div class="container">
+    <article>
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p><p/>
+           <p>
+                     <div class="row">
+               <div class="post-heading">
+              <h2>Creating a Searchable Database with Text Extracted from Scanned Pdfs or Images</h2>
+              <h3 class="subheading">Pdf Text OCR - Searchable Pdf text in a Database</h3>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on August 05, 2019</span>
+                 <a href="#">
+ <img class="img-fluid" src="img/jen-theodore-hbkWMj41Y0I-unsplash.jpg" alt="">
+ </a>
+            </div>
+                       </p>
+            <p>In this short tutorial I show how to extract text from images and scanned pdfs 
+              and store the results in a database to make the document searchable..</p>
+
+            <p>
+              Pdf documents and images with text are difficult to work with. Most business people manually read through multiple 
+              pages to retrieve the information they are looking for. 
+              We want to use a python program that will take a pdf, whether scanned or not as well as any image that contains text 
+              and extract the text by page and index each page in a dataframe which can be stored in any database of your choice and 
+              be made available for users to write nlp search or mine the text on the table.
+            </p>
+           
+            <p>
+              The example we will use is a pdf document with a mini course on Weka by machine learning mastery. The pdf has 23 pages. 
+              We will use python packages wand, pillow and pytesseract to convert it to image and then extract each page text , all in one program.
+            </p>
+            <p>
+             For the package pytesseract to work, download and install tesseract-ocr from this link. 
+             <a href="https://github.com/UB-Mannheim/tesseract/wiki">tesseract-ocr.</a>
+            </p>
+<p>The complete code is saved on 
+  <a href="https://github.com/opokualbert/Creating-a-searchable-database-with-text-extracted-from-scanned-Pdfs-or-images/blob/master/Pdf%20Text%20OCR%20-%20Searchable%20Pdf%20text%20in%20a%20Database.ipynb">
+  Github</a>.</p></p>   
+          <p>
+            I want to give credit to Ratul Doley for his work on youtube.</p>
+
+<p>We import packages and set options .</p>
+<pre class="pre-scrollable">
+#pip install pillow
+#pip install pytesseract
+from PIL import Image
+import pytesseract
+import io
+from wand.image import Image as wand
+
+#First install tesseract-ocr from this link https://github.com/UB-Mannheim/tesseract/wiki
+#Then add this line for tesseract ocr to work
+pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
+
+import pandas as pd
+pd.set_option('max_colwidth', 2000)
+pd.options.display.max_rows = 500
+</pre>
+            
+<p>These few lines of code import the pdf and convert the file to images and then extract the text in the images. 
+ The resolution you set has an effect on the performance of the code. Higher resolution is better but makes the code slow.</p>
+<pre class="pre-scrollable">
+pdf = wand(filename = "machine_learning_mastery_with_weka_mini_course.pdf", resolution = 300)
+pdfImage = pdf.convert('jpeg')
+
+Blobs = []
+
+for g in pdfImage.sequence:
+    page = wand(image = g)
+    Blobs.append(page.make_blob('jpeg'))
+
+extract = []
+
+for b in Blobs:
+    m = Image.open(io.BytesIO(b))
+    text = pytesseract.image_to_string(m, lang = 'eng')
+    extract.append(text)
+
+print('Done extracting text')
+
+</pre>
+      
+<p>
+The code below will take the results from the above program and and convert it to a pandas dataframe and assign a category just incase
+you are adding more documents. You can also add a time stamp. Each row on the table represents a page from the pdf document and the 
+ index is the page number.
+</p>
+
+<pre class="pre-scrollable">
+df = pd.DataFrame(extract,columns =['Page_Text'])\
+.replace(r'\n',' ', regex=True)
+df['Category'] = 'WEKA'
+df
+</pre>
+
+
+
+<p>
+  This dataframe can be saved in a database for business users to query. I will write another post to show some nlp examples we can do on this table.
+</p>
+
+         </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupmachinelearning">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2019</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+<!-- Page Header -->
+     <div id="ner"></div>
+    <!-- Post Content -->
+
+    <div class="container">
+    <article>
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p><p/>
+           <p>
+                     <div class="row">
+               <div class="post-heading">
+              <h2>Named Entity Recognition With Stanford NLP NER Package:</h2>
+              <h3 class="subheading">Automated Information Extraction from Text - Natural Language Processing</h3>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on July 20, 2019</span>
+                 <a href="#">
+ <img class="img-fluid" src="img/cristian-newman-ZjYIfZ8wf2I-unsplash.jpg" alt="">
+ </a>
+            </div>
+                       </p>
+            <p>In this short post, I will show how to get the entities in an article or any text documents using Natural language 
+              processing technique. We will use the powerful NER Package by Stanford NLP in this tutorial.</p>
+
+            <p>
+              An entity could be a person, organization, location, date/time, money, percentage, the list goes on. 
+              This is useful if you quickly need to gather the specific salient information about a very long document, 
+              example who contacted who at what time and at what place; 
+              and which organization do they work for or are they discussing? Was money involved in the dealings and how much?
+            </p>
+           
+            <p>
+            If your job involve answering these kinds of questions using text documents, then this tutorial may improve your productivity.
+            </p>
+            <p>
+             We are using the text from this article from techrunch. <a href="https://techcrunch.com/2019/06/21/african-fintech-dominates-catalyst-funds-2019-startup-cohort/">African fintech dominates Catalyst Fund’s 2019 startup cohort</a>
+            
+
+            </p>
+<p>Make sure you have java.exe in this location. Sometimes, it is not required, depending on your machine setup</p>
+
+<pre class="pre-scrollable">
+import os
+java_path = "C:/Program Files/Java/jre1.8.0_211/bin/java.exe"
+os.environ['JAVAHOME'] = java_path
+</pre>
+            
+<p>We import packages and create a function to capture the entities, credit to Omar Bahareth.</p>
+<pre class="pre-scrollable">
+from nltk.tag.stanford import StanfordNERTagger
+from nltk.tokenize import word_tokenize
+
+def formatted_entities(classified_paragraphs_list):
+    entities = {'persons': list(), 'organizations': list(), 'locations': list(), 'dates': list(), 'money': list(), 'percent': list()}
+
+    for classified_paragraph in classified_paragraphs_list:
+        for entry in classified_paragraph:
+            entry_value = entry[0]
+            entry_type = entry[1]
+
+            if entry_type == 'PERSON':
+                entities['persons'].append(entry_value)
+
+            elif entry_type == 'ORGANIZATION':
+                entities['organizations'].append(entry_value)
+
+            elif entry_type == 'LOCATION':
+                entities['locations'].append(entry_value)
+            elif entry_type == 'DATE':
+                entities['dates'].append(entry_value)
+            elif entry_type == 'MONEY':
+                entities['money'].append(entry_value)
+            elif entry_type == 'PERCENT':
+                entities['percent'].append(entry_value)
+    return entities
+
+</pre>
+      
+<p>
+Download stanford-ner-2018-10-16 and unzip to get  english.muc.7class.distsim.crf.ser.gz and stanford-ner.jar files. Save them in the appropraite folder
+from stanfor nlp site <a href="https://nlp.stanford.edu/software/stanford-parser-full-2018-10-17.zip">Stanford parser</a> and run the code below.
+</p>
+
+<pre class="pre-scrollable">
+tagger = StanfordNERTagger('/Users/Shared/stanford-ner/classifiers/english.muc.7class.distsim.crf.ser.gz',
+               '/Users/Shared/stanford-ner/stanford-ner.jar',encoding='utf-8')
+</pre>
+<p>Import spacy to extract the data from the text file</p>
+<pre class="pre-scrollable">
+import spacy,en_core_web_sm
+import pandas as pd
+
+nlp = en_core_web_sm.load()
+doc = nlp(open('African_Fintech.txt', encoding="utf8").read())
+</pre>
+
+<p>We create a dataframe that has the tokenized sentences in a column.</p>
+<pre class="pre-scrollable">
+ 
+d = []
+for idno, sentence in enumerate(doc.sents):
+    d.append({"id": idno, "sentence":str(sentence)})
+
+df = pd.DataFrame(d)
+df.set_index('id', inplace=True)
+
+print('There are {}'.format(len(d)) ,'Sentences in this article')
+df.head()
+</pre>
+<p>
+Convert the sentences to a list and create the result: a dictionary of all the entities you specified above.
+</p>
+            
+<pre class="pre-scrollable">
+df1=df.sentence.tolist()
+tokenized_paragraphs = list()
+
+for text in df1:
+    tokenized_paragraphs.append(word_tokenize(text))
+
+classified_paragraphs_list = tagger.tag_sents(tokenized_paragraphs)
+
+
+formatted_result = formatted_entities(classified_paragraphs_list)
+print(formatted_result)
+</pre>
+
+<a href="#">
+              <img class="img-fluid" src="img/Capture.JPG" alt="">
+            </a>
+
+
+<p>The complete code is saved on <a href="https://github.com/opokualbert/Named_Entity_Recognition_With_Stanford_NLP/blob/master/Named_Entity_Recognition_With_Stanford_NLP.ipynb">Github</a>.</p>
+
+         </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupmachinelearning">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2019</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+
+  <!-- Page Header -->
+     <div id="complaint"></div>
+    <!-- Post Content -->
+
+    <div class="container">
+    <article>
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p><p/>
+           <p>
+                     <div class="row">
+               <div class="post-heading">
+              <h2>Classification of Customer Complaints using Tensorflow:</h2>
+              <h3 class="subheading">Text Classification with Word Embeddings</h3>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on September 12, 2018</span>
+                 <a href="#">
+ <img class="img-fluid" src="img/eugenio-mazzone-190204-unsplash.jpg" alt="">
+ </a>
+            </div>
+                       </p>
+            <p>In this post, I show how to classify consumer complaints text into these categories: Debt collection, Consumer Loan, Mortgage, Credit card, Credit reporting, Student loan, Bank account or service, Payday loan, Money transfers, Other financial service, Prepaid card.</p>
+
+            <p>This kind of model will be very useful for a customer service department that wants to classify the complaints they receive from their customers. The classification of the issues they have received into buckets will help the department to provide customized solutions to the customers in each group.</p>
+           
+            <p>This model can also be expanded into a system, that can recommend automatic solutions to future complaints as they come in. In the past, performing these kinds of tasks were done manually by multiple employees and of course, take a long time to accomplish, delaying swift response to the complaints received.</p>
+            <p>Machine learning and AI are here to solve this caliber of problems. Imagine you can classify new complaints with 95% accuracy and route them to the right team to resolve the issue. That will be a win and time saving to any business. Your customers will be happy because the right expert from your business will talk to your customers in trying to resolving their complaints. This will translate into lowering churning rate which means more revenue.</p>
+            <p>I trained a text classifier with 66,806 of data on customers that have made a complaint to consumer financial protection bureau - CFPB about US financial institutions on the services they have rendered to these consumers. The dataset is on kaggle.com at this link <a href="https://www.kaggle.com/cfpb/us-consumer-finance-complaints"></a>.</p> 
+            <p>I used the universal-sentence-encoder-large/3 module on the new tensorflowhub platform to leverage the power of transfer learning which according to Wikipedia, is a research problem in machine learning that focuses on storing knowledge gained while solving one problem and applying it to a different but related problem. Google and other teams have made available on tensorflowhub, models that took them about 62,000 GPU hours to train for our free use.</p>
+            <p>This dataset is relatively not large but this kind of machine learning process requires more compute power so I chose to use Google’s colab, which gives the option to train a model with free GPU. I have a previous blog post on downloading Kaggle datasets into Google Colab on my <a href="https://opokualbert.com/post.html#colab">website</a>, you may want to check it out if you are interested in downloading this dataset to follow along with this demo.  
+            <p>I will walk through the steps and in the end, we will classify new complaints and see how the model performed.</p>
+            
+
+            <p>We import the needed packages for this work.</p>
+<pre class="pre-scrollable">
+import os
+import numpy as np
+import pandas as pd
+import tensorflow as tf
+import tensorflow_hub as hub
+import json
+import pickle
+import urllib
+
+from sklearn.preprocessing import LabelBinarizer
+
+print(tf.__version__)</pre>
+  <h2 class="section-heading">Data Preparation and Cleaning</h2>      
+            <p>Take a look at the data with pandas.</p>
+<pre class="pre-scrollable">
+data = data[pd.notnull(data['consumer_complaint_narrative'])]
+data.head()
+</pre>
+            <p>We convert the consumer_complaint_narrative column to lower case, perfect for NLP.</p>
+<pre class="pre-scrollable">
+pd.set_option('max_colwidth', 1000)
+data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.lower()
+data.head()</pre>
+
+ <p>We remove characters that do not have predictive power and can misinform the model.</p>
+<pre class="pre-scrollable">
+ import re
+data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.replace('x', '')
+data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.replace('{', '')
+data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.replace('}', '')
+data['consumer_complaint_narrative'] = data['consumer_complaint_narrative'].str.replace('/', '')
+data.head() </pre>
+            <p>We assign the the complaint text and the product type to variables to be able to preprocess. We also set aside 0.0001 for testing after we train the model. The remainder of the data is split into train and validation sets.</p>
+            
+<pre class="pre-scrollable">
+data_comp=data[['consumer_complaint_narrative']]
+data_prod=data[['product']]
+
+train_size = int(len(data_comp) * .999)
+train_descriptions = data_comp[:train_size].astype('str')
+train_prod = data_prod[:train_size]
+test_descriptions = data_comp[train_size:].astype('str')
+test_prod =data_prod[train_size:]
+
+train_size = int(len(train_descriptions) * .8)
+train_desc = train_descriptions[:train_size]
+train_pr = train_prod[:train_size]
+val_desc = train_descriptions[train_size:]
+val_pr =train_prod[train_size:]
+</pre>
+
+            <p>We will use scikit learn to encode the labels into one-hot vector. We also print encoder.classes_ to show the list of all the classes the model will be predicting.</p>
+              
+<pre class="pre-scrollable">
+from sklearn import preprocessing
+encoder = preprocessing.LabelBinarizer()
+encoder.fit_transform(train_pr)
+train_encoded = encoder.transform(train_pr)
+val_encoded = encoder.transform(val_pr)
+num_classes = len(encoder.classes_)
+
+# Print all possible products and the label for the first complaint in our training dataset
+print(encoder.classes_)
+print(train_encoded[0])
+</pre>
+            <h2 class="section-heading">Model training using TensorFlow DNNEstimator</h2>
+            
+            <p>We will download the tfhub pre-trained text embeddings universal-sentence-encoder-large/3 to encode the complaint text into high dimensional text vectors. Be aware that this can take a few minutes to download.</p>
+<pre class="pre-scrollable">
+description_embeddings = hub.text_embedding_column("descriptions", module_spec="https://tfhub.dev/google/universal-sentence-encoder-large/3", trainable=False)
+</pre>          
+            <p>We are going to use a DNNEstimator to train a deep neural net.The model will have 2 hidden layers of 64 neurons in the first layer and 10 neurons in the second layer. We also use a batch_size of 100 and 10 epochs. These are parameters you can tune to find the perfect combination. We also pass the inputs, in this case, the features and label as well as the description_embeddings.</p>
+            <p>Batch_size represent the number of examples that will be passed to our model during one iteration, and num_epochs is the number of times our model will go through the entire training set.</p>
+<pre class="pre-scrollable">
+
+multi_label_head  = tf.contrib.estimator.multi_label_head(
+    num_classes,
+    loss_reduction=tf.losses.Reduction.SUM_OVER_BATCH_SIZE
+)
+features = {
+  "descriptions": np.array(train_desc).astype(np.str)
+}
+labels = np.array(train_encoded).astype(np.int32)
+train_input_fn = tf.estimator.inputs.numpy_input_fn(features, labels, shuffle=True, batch_size=100, num_epochs=10)
+estimator = tf.contrib.estimator.DNNEstimator(
+    head=multi_label_head,
+    hidden_units=[64,10],
+    feature_columns=[description_embeddings])    
+ </pre>
+ <p>We are ready to train the model. We will time it to know how long it took to finish training.</p>
+<pre class="pre-scrollable">  
+%%timeit
+estimator.train(input_fn=train_input_fn)
+
+#This is optional to run to get the training accuracy so that we can compare with the validation accuracy to check for overfitting
+%%timeit
+train_input_fn_1 = tf.estimator.inputs.numpy_input_fn({"descriptions": np.array(train_desc).astype(np.str)}, train_encoded.astype(np.int32), shuffle=False)
+estimator.evaluate(input_fn=train_input_fn_1)
+</pre>
+ 
+            <p>It is time to evaluate our model with the evaluation dataset we set aside. The results is pretty good at 95%. You can tune the hyperparameters to acheive a better results.</p>
+<pre class="pre-scrollable">
+
+eval_input_fn = tf.estimator.inputs.numpy_input_fn({"descriptions": np.array(val_desc).astype(np.str)}, val_encoded.astype(np.int32), shuffle=False)
+estimator.evaluate(input_fn=eval_input_fn)
+</pre>
+            <p>Finally, let us test our model and see how it will do on classifying new data. We will test the model with 67 records. It got a few incorrect. You will see that those the model could not predict correctly also had low confidence values.</p>
+ <pre class="pre-scrollable">
+ 
+predict_input_fn = tf.estimator.inputs.numpy_input_fn({"descriptions": np.array(test_descriptions).astype(np.str)}, shuffle=False)
+results = estimator.predict(predict_input_fn)
+for product in results:
+  top = product['probabilities'].argsort()[-1:]
+  for prod in top:
+    text_prod = encoder.classes_[prod]
+    print(text_prod + ': ' + str(round(product['probabilities'][prod] * 100, 2)) + '%')
+  print('')
+  </pre>
+            <p>The complete code is saved on <a href="https://github.com/opokualbert/Classification-of-customer-complaints-using-tensorflow---Text-Classification-with-Word-Embeddings/blob/master/Consumer%20Complaints%20Classification.ipynb">Github</a>.</p>
+
+         </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupredictiveanalytics">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2018</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+
+  <!-- Page Header -->
+     <div id="colab"></div>
+    <!-- Post Content -->
+
+    <div class="container">
+    <article>
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p><p/>
+           <p>
+                     <div class="row">
+               <div class="post-heading">
+              <h2>Downloading Kaggle Datasets into Google Colab:</h2>
+              <h3 class="subheading">Easy Access to Kaggle Datasets in Colab</h3>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on September 03, 2018</span>
+                 <a href="#">
+ <img class="img-fluid" src="img/colab.png" alt="">
+ </a>
+            </div>
+                       </p>
+            <p>In this tutorial, I show how to download kaggle datasets into google colab. Kaggle has been and remains the de factor platform to try your hands on data science projects. The platform has huge rich free datasets for machine learning projects.</p>
+
+            <p>Another product from google, the company behind kaggle is colab, a platform suitable for training machine learning models and deep neural network free of charge without any installation requirement. One key thing that makes colab a game changer, especially for people who do not own GPU laptop is that users have the option to train their models with free GPU. Colab does not have the trove of datasets kaggle host on its platform therefore, it will be nice if you could access the datasets on kaggle from colab. There is in fact a kaggle API which we can use in colab but setting it up to work is not so easy. I would want to show how to use the API in a few simple steps.</p>
+           
+            <h2 class="section-heading">Step 1</h2>
+            <p>Create a kaggle account if you do not have one already. Click on your user name, click on account.</p>
+             <a href="#">
+              <img class="img-fluid" src="img/kaggle api 1.png" alt="">
+            </a>
+            <p>Scroll down to click on create new API token. This will download a file unto your PC. Note the location of the downloaded file.</p>
+            <a href="#">
+              <img class="img-fluid" src="img/kaggle api 2.PNG" alt="">
+            </a>
+
+            <h2 class="section-heading">Step 2</h2>
+            <p>Go to colab via this link: <a href="https://colab.research.google.com/notebooks/welcome.ipynb">Colab</a> and under file, click on new python 3 notebook. In the first cell, type this code to install kaggle API and make a directory called kaggle.</p>
+
+              <pre class="pre-scrollable">
+!pip install -U -q kaggle
+!mkdir -p ~/.kaggle</pre>
+            <h2 class="section-heading">Step 3</h2>
+
+            <p>Type this code into the next cell and run to import the API key into colab</p>
+            <pre class="pre-scrollable">
+from google.colab import files
+files.upload()</pre>
+            <p>In the next cell, run this code to copy the API key to the kaggle directory we created.</p>
+<pre class="pre-scrollable">
+!cp kaggle.json ~/.kaggle/</pre>            
+
+
+            <p>The datasets should be available for us to use. Let us list the datasets with this code.</p>
+<pre class="pre-scrollable">
+!kaggle datasets list</pre>
+            
+            <h2 class="section-heading">Step 4</h2>
+
+            <p>We can download files now by using this sample code. In this case the US consumer finance complaints was downloaded.</p>
+<pre class="pre-scrollable">
+!kaggle datasets download -d cfpb/us-consumer-finance-complaints
+!ls</pre>
+            <h2 class="section-heading">Step 5</h2>
+            <p>We use pandas to read the data we have downloaded by unzipping the file first. This line of code works in most situations.</p>
+<pre class="pre-scrollable">
+import pandas as pd
+data2 = pd.read_csv('/content/us-consumer-finance-complaints.zip', compression='zip', header=0, sep=',', quotechar='"')</pre>
+            <p>It did not work here because the zipped file also contains a sqlite database. I will use a different method below to extract only the CSV.</p>
+<pre class="pre-scrollable">
+from zipfile import ZipFile
+zip_file = ZipFile('/content/us-consumer-finance-complaints.zip')
+fields= ['product','consumer_complaint_narrative'] 
+data=pd.read_csv(zip_file.open('consumer_complaints.csv'), usecols=fields)
+data.head()</pre>
+            
+            <p>You can get the entire code on at <a href="https://github.com/opokualbert/Downloading-Kaggle-Datasets-into-Google-Colab">GitHub</a>.</p>
+              
+         </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupredictiveanalytics">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2018</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+ <hr>
+  <!-- Page Header -->
+     <div id="Soccer"></div>
+    <!-- Post Content -->
+
+    <div class="container">
+    <article>
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <p><p/>
+           <p>
+                     <div class="row">
+               <div class="post-heading">
+              <h2>Exploring the Causes of Death of Soccer Players:</h2>
+              <h3 class="subheading">SPARQL and Python Tutorial</h3>
+              <span class="meta">Posted by
+                <a href="#">Albert Opoku</a>
+                on July 14, 2018</span>
+                 <a href="#">
+ <img class="img-fluid" src="img/Player.jpg" alt="">
+ </a>
+            </div>
+                       </p>
+            <p>As we watch soccer players exhibit their skills on the pitch at the world cup stage, we would think these players are healthy in all sense, given the amount of work they put in before and during each game. Health experts advise, exercising is paramount for avoiding many diseases. In that context, I wondered what is the impact of exercise on sports men and women, and in particular, soccer players.</p>
+
+            <p>These questions cannot be answered for players currently playing in the game because I do not have access to their medical records so I decided to use a public data on Wikipedia which show the causes of death of soccer players on earth.</p>
+
+            <p>I decided to make this more of a tutorial so I will share steps of the data acquisition through to the analysis. I wanted to find out the average age at death, and the causes of death of soccer players that have passed away.</p>
+            
+
+            <h2 class="section-heading">Load The Required Python Packages</h2>
+
+              <pre class="pre-scrollable">
+#%reload_ext signature 
+# To sign my name at the end of code .You need to have a script saved before it works. You can remove it.
+%matplotlib inline
+import requests
+import pandas as pd
+import matplotlib as mpl
+import matplotlib.pyplot as plt
+import io
+chartinfo = ‘Author: Albert Opoku• Data source: wikidata.org’
+infosize = 12</pre>
+
+            <h2 class="section-heading">Querying data from Wikipedia using SPARQL language</h2>
+
+            <p>SPARQL developed by W3C is an RDF query language, that is, a semantic query language for databases, able to retrieve and manipulate data stored in Resource Description Framework (RDF) format. I decided to write my SPARQL code in python because python with pandas gives me the ability do my analysis without changing to another programming language.</p>
+
+            <p>I will query the following information: Name, Country of citizenship, Cause of death, date of birth and date of death for each soccer player reported dead on Wikipedia.</p>
+
+            <p>I would like to acknowledge Ramiro Gómez for sharing his SPARQL python code on <a href="https://github.com/opokualbert/Causes-of-Death-for-Soccer-Players/">GitHub</a>.</p>
+            <!--pre class="pre-scrollable"-->
+            
+query = '''PREFIX wikibase: <http://wikiba.se/ontology#>
+PREFIX wd: <http://www.wikidata.org/entity/>
+PREFIX wdt: <http://www.wikidata.org/prop/direct/>
+PREFIX rdfs: <http://www.w3.org/2000/01/rdf-schema#>
+SELECT ?name ?cause ?dob ?dod ?country WHERE {
+ ?pid wdt:P106 wd:Q937857 . 
+ ?pid wdt:P509 ?cid .
+ ?pid wdt:P569 ?dob .
+ ?pid wdt:P570 ?dod .
+ ?pid wdt:P27 ?cot.
+OPTIONAL {
+ ?pid rdfs:label ?name filter (lang(?name) = “en”) .
+ }
+ OPTIONAL {
+ ?cid rdfs:label ?cause filter (lang(?cause) = “en”) .
+ }
+ OPTIONAL {
+ ?cot rdfs:label ?country filter (lang(?country) = “en”) .
+ }
+}'''
+url = ‘https://query.wikidata.org/bigdata/namespace/wdq/sparql'
+data = requests.get(url, params={‘query’: query, ‘format’: ‘json’}).json()
+ <!--/pre-->
+ 
+            <p>I will use the code below to parse the values we need out of the json and save in a pandas DataFrame for analysis. There are 1,390 soccer players reported dead on Wikipedia at the time of writing.</p>
+<pre class="pre-scrollable">
+soccer = []
+for item in data['results']['bindings']:
+    try:
+        soccer.append({
+        'name': item['name']['value'],
+        'country': item['country']['value'],
+        'cause_of_death': item['cause']['value'],
+        'date_of_birth': item['dob']['value'],
+        'date_of_death': item['dod']['value']})
+    except KeyError:
+        pass
+df = pd.DataFrame(soccer)
+print(len(df))
+df.head()
+</pre>
+         <p>Let us use df.info() to check the data types and also find out if there are missing values in any of the columns. We will also use the df.describe() to get the summary statistics on the data. Turns out the fields are all object type and there are no missing values.</p> 
+   <pre class="pre-scrollable">
+df.info()
+df.describe()
+</pre>
+        <p>Let us extract the year out of the date of birth and date of death fields so that we can calculate the age of each player.</p>
+<pre class="pre-scrollable">
+df[‘date_of_death’] = df.date_of_death.str.slice(0, 4).astype(int)
+df[‘date_of_birth’] = df.date_of_birth.str.slice(0, 4).astype(int)
+df['age']=df.date_of_death - df.date_of_birth
+print(df.head())
+df.describe()
+</pre>
+       <p>It does look like Jackie Benyon was born in the year 2000 but died in 1937. How could that be? That is what you deal with when you work with raw data. We will exclude Jackie Benyon from the data soon. Data on Xie Hui also doesn’t seem to be correct.</p>
+<pre class="pre-scrollable">  
+df[(df['date_of_death']==426)|(df['age']==-63)]
+df=df[df['age']!=-63]
+df=df[df['date_of_death']!=426]
+df.describe()  
+</pre>
+
+      <p>After excluding these two players, the average age at death for soccer players is 55.Now let us visualize the causes of death for the players. I will visualize the top 20 causes. It is worth to note that Wikipedia sometimes publish multiple cause of death for an individual. It could be that doctors attribute multiple diseases as the cause of death for some patients.</p>
+ <pre class="pre-scrollable">
+title = 'Association Football(Soccer) players top 20 Causes of Death According to Wikipedia'
+footer =  chartinfo
+    
+df['cause of death'] = df['cause_of_death'].apply(lambda x: x.capitalize())
+s = df.groupby('cause_of_death').agg('count')['name'].sort_values().tail(20)
+ax = s.plot(kind='barh', figsize=(9, 8), title=title,color='xkcd:sky blue')
+ax.yaxis.set_label_text('')
+ax.xaxis.set_label_text('Cause of death count')
+ax.annotate(footer, xy=(-0.1, -0.14), xycoords='axes fraction', fontsize=infosize)
+plt.savefig('img',dpi=300, bbox_inches = "tight")
+</pre>
+
+<img class="img-fluid" src="img/img_players_graph.png" alt="">
+         <p>The result is not as expected. You would think people that workout that much won’t develop myocardial infarction aka “heart attack”. Perhaps they stop exercising when they retired from active football or food choices may be blamed. The doctors can help us out. Traffic accident at position number three is interesting. I can’t think about any reason behind this, there surely maybe something going on with these players that is not captured in this data. Have fun, explore the rest of the graph. You can also try your hands on the code.</p>
+  
+         </div>
+        </div>
+      </div>
+    </article>
+
+    <hr>
+    
+    <!-- Footer -->
+    <footer>
+      <div class="container">
+        <div class="row">
+          <div class="col-lg-8 col-md-10 mx-auto">
+            <ul class="list-inline text-center">
+              <li class="list-inline-item">
+                <a href="https://twitter.com/opalbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-twitter fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://www.linkedin.com/in/albertopokupredictiveanalytics">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-linkedin fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+              <li class="list-inline-item">
+                <a href="https://github.com/opokualbert">
+                  <span class="fa-stack fa-lg">
+                    <i class="fa fa-circle fa-stack-2x"></i>
+                    <i class="fa fa-github fa-stack-1x fa-inverse"></i>
+                  </span>
+                </a>
+              </li>
+            </ul>
+            <p class="copyright text-muted">Copyright &copy; Albert Opoku 2018</p>
+          </div>
+        </div>
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript -->
+    <script src="vendor/jquery/jquery.min.js"></script>
+    <script src="vendor/bootstrap/js/bootstrap.bundle.min.js"></script>
+
+    <!-- Custom scripts for this template -->
+    <script src="js/clean-blog.min.js"></script>
+
+  </body>
+
+</html>
