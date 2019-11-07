@@ -8,6 +8,7 @@ categories:
   - nlp
   - OCR
 ---
+
 ![](https://imgur.com/9rMrLjl)
 
 In this short post we are going to retrieve all the entities in the "whistleblower complaint regarding President Trump's communications with Ukrainian President Volodymyr Zelensky" that was unclassified and made public today.
@@ -119,7 +120,7 @@ print(df4.shape)
 df4
 ```
 
-![](https://imgur.com/D4Amz4Z)
+![ner_results](https://i.imgur.com/D4Amz4Z.jpg)
 
 Spacy also gives additional methods to describe or explain what the labels represent. And if you so desire, you can also visualize the entities in the text document.
 
