@@ -5,75 +5,59 @@ permalink: /about/
 published: true
 ---
 
-__Mission statement__: Make the greatest possible positive social impact using data science. I believe in
-helping others around you propser, whether through working a socially benefical career, writing
-free data science articles to educate others, or volunteering in one's community. We all have choices to make,
-and I've decided to devote my career to trying to improve human sustainability, which I think can be done most effectively as a data scientist working in the energy sector.
+__Mission statement__: Share more of what I learn about Applied AI, ML,Data Science, NLP with others by writing blog posts regularly.
 
 # Experience
 
 ## Current
 
-* Lead data scientist at [Cortex Building Intelligence](https://cortexintel.com) in New York City
-* Building tools to help commercial office buildings operate more energy efficiently
-* Developed and deployed end-to-end machine learning pipelines currently running in production
+### ML/AI Model Validation Analyst at one of the top 5 US financial institution.
+* Training machine learning models to validate ML models built by other teams.
 
 ## Previous
-* Lead data scientist at Feature Labs, working on automated feature engineering
-* Solved custom data science problems
+### Senior Statistical Consultant at Alliance Data Card Services 3 years
+* Built NLP/NLU models to get insights from text documents
+* Built propensity models to support marketing campaigns
+* Automated model scoring process to free up six employees for focusing on tasks that require their expertise
 
-## Research
-* Former member of the [EDIFES research team](https://arpa-e.energy.gov/?q=slick-sheet-project/virtual-building-energy-audits) at Case Western Reserve University developing a data science platform for virtual energy audits
+### JPMorgan Chase Bank for 3 years
+* Senior Data Analyst in the Asset Management private bank department creating ultra-high net worth client marketing list for various marketing campaigns
+* Business Analyst II in the Mortgage department, working on statistical sampling and regulatory reporting
+* Operations Senior Specialist, focused on mortgage default analysis
 
-## Writing
-
-* Avid data science advocate and communicator on [Towards Data Science](http://medium.com/@williamkoehrsen/)
-* 100,000 monthly readers (25,000 subscribers)
-* Articles are always free because I believe in allowing everyone equal access to information!
 
 *****
 
 # Education
-## Case Western Reserve University, Cleveland, OH, August 2014-May 2018
-* Bachelor of Science in Mechanical Engineering
-* Minor in Applied Data Science
+## Ohio University, Athens, OH, January 2011-August 2013
+* Master of Financial Economics
 
-## Georgia Tech    Expected Graduation: May 2022
-* Masters of Science in Computer Science (Online)
+## Kwame Nkrumah University of Science and Technology, Kumasi, Ghana, August 2004-June 2008
+* Bachelors in Economics
 
-## Udacity
-* Machine Learning Engineer Nanodegree
-* Data Analyst Nanodegree
-
-## Coursera
-* Deep Learning Specialization
-* Machine Learning Specialization
-
-*****
 
 ### More Information
 
 Follow me at a variety of places around the web:
 
-* GitHub: [WillKoehrsen](https://github.com/WillKoehrsen)
-* Towards Data Science: [williamkoehrsen](http://medium.com/@williamkoehrsen/)
-* Twitter: [@koehrsen_will](https://twitter.com/@koehrsen_will)
-* Kaggle: [Will Koehrsen](https://www.kaggle.com/willkoehrsen)
-* StackOverflow: [casewestern](https://stackoverflow.com/users/5755357/casewestern)
+* GitHub: [opokualbert](https://github.com/opokualbert)
+* Medium: [Albert Opoku](https://medium.com/@opalkabert)
+* Twitter: [@opalbert](https://twitter.com/opalbert)
+* LinkedIn: [Albert Opoku](https://www.linkedin.com/in/albertopokupmachinelearning/)
 
 *****
 
 ### Contact me
 
-If you have a data science question or would like to dicuss anything data science related I'm responsive on Twitter or directly at [wjk68@case.edu](mailto:wjk68@case.edu). If you do contact me, please remember I'm doing this on a volunteer basis.
+I can be reached via [Twitter](https://twitter.com/opalbert) or [LinkedIn](https://www.linkedin.com/in/albertopokupmachinelearning/) message.
 
 *****
 
-## Live Code
+<!--## Live Code
 
 Most about pages are pretty dull. To mix things up, I've included a live Python editor where you can edit and run code. Thanks to [repl.it](https://repl.it/) for making this possible.
 
 <div class="code-container">
     <iframe src="https://repl.it/@WillKoehrsen/basicpython?lite=true">
     </iframe>
-</div>
+</div>-->
