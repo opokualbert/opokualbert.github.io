@@ -21,7 +21,9 @@ If any of the techniques we are using is not familiar to you, refer to my blog p
 
 The PDF we are using is published on [Washington Post.](https://www.washingtonpost.com/context/read-the-whistleblower-complaint-regarding-president-trump-s-communications-with-ukrainian-president-volodymyr-zelensky/4b9e0ca5-3824-467f-b1a3-77f2d4ee16aa/) You can download and save to your directory but for this project, I decided to make every bit of the process automated. I used urllib python package to download the pdf. The entire code can be found on my [GitHub page](https://github.com/opokualbert/PDF-OCR-and-Named-Entity-Recognition).
 
+
 We import all the needed python packages.
+
 
 ```
 from PIL import Image
@@ -38,6 +40,7 @@ import pandas as pd
 #Then add this line for tesseract ocr to work
 pytesseract.pytesseract.tesseract_cmd = r"C:\Program Files (x86)\Tesseract-OCR\tesseract.exe"
 ```
+
 Downloading the PDF from Washington Post using urllib instead of manual download.  
 
 ```
@@ -51,9 +54,11 @@ r = requests.get(url)
 with open("trump_ukrain.pdf", "wb") as code:
     code.write(r.content)
 ```
+
 # PDF OCR
 
 These few lines of code import the pdf we downloaded, convert the file to images and then extract the text in the images. The resolution you set has an effect on the performance of the code. Higher resolution is better but makes the code slow.
+
 
 ```
 pdf = wi(filename = "trump_ukrain.pdf", resolution = 300)
@@ -82,6 +87,7 @@ df = pd.DataFrame(extracted_text,columns =['Page_Text'])\
 .replace(r'\n',' ', regex=True)
 df
 ```
+
 # Named Entity Recognition.
 
 Import spacy to extract the data from the text file and also set options.
@@ -92,6 +98,7 @@ import pandas as pd
 pd.set_option('max_colwidth', 2000)
 pd.options.display.max_rows = 500
 ```
+
 These few lines of code loads the spacy large english core language model, loads and parse the text file we are trying to analyse and assign to spacy object named doc. We also take a look at the content of the document loaded. 
 
 ```
@@ -122,8 +129,11 @@ df4
 
 ![ner_results](https://i.imgur.com/D4Amz4Z.jpg)
 
+
 Spacy also gives additional methods to describe or explain what the labels represent. And if you so desire, you can also visualize the entities in the text document.
 
 ![displacy](https://github.com/opokualbert/PDF-OCR-and-Named-Entity-Recognition/blob/master/entity_displacy.JPG?raw=true)
+
+
 
 I welcome feedback and discussion. I can be reached on Twitter [@opalbert](https://twitter.com/opalbert).
