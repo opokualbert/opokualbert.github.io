@@ -9,7 +9,7 @@ categories:
   - OCR
 ---
 
-![](https://imgur.com/9rMrLjl)
+![silent](https://i.imgur.com/6hHnRGT.jpg)
 
 In this short post we are going to retrieve all the entities in the "whistleblower complaint regarding President Trump's communications with Ukrainian President Volodymyr Zelensky" that was unclassified and made public today.
 
@@ -124,6 +124,6 @@ df4
 
 Spacy also gives additional methods to describe or explain what the labels represent. And if you so desire, you can also visualize the entities in the text document.
 
-![](https://github.com/opokualbert/PDF-OCR-and-Named-Entity-Recognition/blob/master/entity_displacy.JPG)
+![displacy](https://github.com/opokualbert/PDF-OCR-and-Named-Entity-Recognition/blob/master/entity_displacy.JPG?raw=true)
 
 I welcome feedback and discussion. I can be reached on Twitter [@opalbert](https://twitter.com/opalbert).
