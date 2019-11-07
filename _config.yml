@@ -9,7 +9,7 @@ name: Albert Opoku
 description: Applied Machine Learning and Data Science - NLP
 
 # URL of your avatar or profile pic (you could use your GitHub profile pic)
-avatar: https://avatars3.githubusercontent.com/u/17484616?s=460&v=4
+avatar: https://avatars1.githubusercontent.com/u/6060244?s=400&u=5f094319acd3612dc4b32c0de800a37ce3ddf88f&v=4
 
 #
 # Flags below are optional
@@ -21,10 +21,10 @@ paginate: 5
 footer-links:
   dribbble:
   email: 
-  github: WillKoehrsen
-  linkedin: https://www.linkedin.com/in/albertopokupmachinelearning/
+  github: opokualbert
+  linkedin: albertopokupmachinelearning
   rss: # just type anything here for a working RSS icon
-  twitter: koehrsen_will
+  twitter: @opalbert
   stackoverflow: 
 
 # Enter your Disqus shortname (not your username) to enable commenting on posts
