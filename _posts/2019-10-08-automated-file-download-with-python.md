@@ -32,7 +32,8 @@ options.add_experimental_option("prefs", preferences)
 
 driver = webdriver.Chrome(options=options)
 
-tickers= ['AAN','AMP','BAC','C','CAT','CINF','CMI','DFS','HUM','MCK','TECD','TSN','URI','PYPL','AYX']
+tickers= ['AAN','AMP','BAC','C','CAT','CINF','CMI','DFS','HUM',
+'MCK','TECD','TSN','URI','PYPL','AYX']
 
 for ticker in tickers:
     driver.get("https://finance.yahoo.com/quote/" +ticker+ "/history?p="+ticker)
