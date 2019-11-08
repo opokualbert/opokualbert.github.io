@@ -119,5 +119,39 @@ w2v_model.train(sentences_tokenized, total_examples=w2v_model.corpus_count, epoc
 print('Time to train the model: {} mins'.format(round((time() - t) / 60, 2)))
 ```
 
+Save the model for future use. 
+
+```
+w2v_model.wv.save_word2vec_format("cfpb_generic_word2vec.model")
+```
+
+Use the model to find the top 20 most similar words to the word delinquent. See how the model is able to pick words that are misspelled. 
+
+
+```
+w2v_model.wv.most_similar(positive=["delinquent"],topn=20)
+```
+
+![](https://i.imgur.com/r10Gug0.jpg)
+
+
+Use the model to find the top 20 most similar words to the word mod.
+
+```
+w2v_model.wv.most_similar(positive=["mod"],topn=20)
+```
+
+![](https://i.imgur.com/yEAr11I.jpg)
+
+
+Use the model to find the top 20 most similar words to the state of ohio.
+
+```
+w2v_model.wv.most_similar(positive=["ohio"],topn=20)
+```
+
+![](https://i.imgur.com/tzVVOID.jpg)
+
+
 
 I welcome feedback and discussion. I can be reached on Twitter [@opalbert](https://twitter.com/opalbert).
