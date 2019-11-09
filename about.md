@@ -38,7 +38,7 @@ __Mission statement__: Share more of what I learn about Applied AI, ML,Data Scie
 
 # Disclosure:
 
-*I do not represent my current employer or any of my previous employers in any way on this platform. Everything shared here is solely my openion. Any information on here is not a recommendation and I am not responsible for any risks as a result of using these tutorials*
+*I do not represent my current employer or any of my previous employers in any way on this platform. Everything shared here is solely my opinion. Any information on here is not a recommendation and I am not responsible for any risks as a result of using these tutorials*
 
 ### More Information
 
