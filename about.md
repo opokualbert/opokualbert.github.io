@@ -20,7 +20,7 @@ __Mission statement__: Share more of what I learn about Applied AI, ML,Data Scie
 * Built propensity models to support marketing campaigns
 * Automated model scoring process to free up six employees for focusing on tasks that require their expertise
 
-### JPMorgan Chase Bank for 3 years
+### JPMorgan Chase Bank for 6 years
 * Senior Data Analyst in the Asset Management private bank department creating ultra-high net worth client marketing list for various marketing campaigns
 * Business Analyst II in the Mortgage department, working on statistical sampling and regulatory reporting
 * Operations Senior Specialist, focused on mortgage default analysis
@@ -35,6 +35,10 @@ __Mission statement__: Share more of what I learn about Applied AI, ML,Data Scie
 ## Kwame Nkrumah University of Science and Technology, Kumasi, Ghana, August 2004-June 2008
 * Bachelors in Economics
 
+
+# Disclosure:
+
+*I do not represent my current employer or any of my previous employers in any way on this platform. Everything shared here is solely my openion. Any information on here is not a recommendation and I am not responsible for any risks as a result of using these tutorials*
 
 ### More Information
 
