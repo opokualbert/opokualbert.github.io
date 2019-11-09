@@ -86,7 +86,7 @@ data=pd.read_csv(zip_file.open('consumer_complaints.csv'), usecols=fields)
 data.head()
 ```
 
-You can get the entire code on at [GitHub](https://github.com/opokualbert/Downloading-Kaggle-Datasets-into-Google-Colab).
+You can get the entire code at [GitHub](https://github.com/opokualbert/Downloading-Kaggle-Datasets-into-Google-Colab).
 
 
 
