@@ -9,7 +9,7 @@ categories:
 ---
 ![](https://github.com/opokualbert/Creating-a-searchable-database-with-text-extracted-from-scanned-Pdfs-or-images/blob/master/jen-theodore-hbkWMj41Y0I-unsplash.jpg?raw=true)
 
-n this short tutorial I show how to extract text from images and scanned pdfs and store the results in a database to make the document searchable. 
+In this short tutorial I show how to extract text from images and scanned pdfs and store the results in a database to make the document searchable. 
 
 Pdf documents and images with text are difficult to work with. Most business people manually read through multiple pages to retrieve the information they are looking for. We want to use a python program that will take a pdf, whether scanned or not as well as any image that contains text and extract the text by page and index each page in a dataframe which can be stored in any database of your choice and be made available for users to write nlp search or mine the text on the table.
 
