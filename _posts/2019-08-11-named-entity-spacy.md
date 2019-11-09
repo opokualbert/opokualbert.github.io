@@ -7,7 +7,7 @@ categories:
   - data science
   - nlp
 ---
-![](https://unsplash.com/photos/HPeyuY6SrUw)
+![](https://images.unsplash.com/photo-1444910069701-01b71164c92d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)
 
 In my [previous](https://opokualbert.com/post.html#ner) post, I showed how you can get the entities in an article or text documents using natural language processing NER Package by Stanford NLP. 
 
