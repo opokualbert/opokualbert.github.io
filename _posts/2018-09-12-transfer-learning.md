@@ -2,7 +2,7 @@
 published: true
 title: "Classification of Customer Complaints using Tensorflow, Transfer Learning:
 Text Classification with Word Embeddings"
-date: 2018-07-20
+date: 2018-09-12
 categories:
   - data science
   - nlp
