@@ -9,7 +9,7 @@ categories:
 ---
 ![](https://images.unsplash.com/photo-1444910069701-01b71164c92d?ixlib=rb-1.2.1&auto=format&fit=crop&w=500&q=60)
 
-In my [previous](https://opokualbert.com/post.html#ner) post, I showed how you can get the entities in an article or text documents using natural language processing NER Package by Stanford NLP. 
+In my [previous](https://opokualbert.com/data%20science/nlp/stanford-ner/) post, I showed how you can get the entities in an article or text documents using natural language processing NER Package by Stanford NLP. 
 
 In this post I will share how to do this in a few lines of code in Spacy and compare the results from the two packages. Named entity recognition is using natural language processing to pull out all entities like a person, organization, money, geo location, time and date from an article or documents.
 
