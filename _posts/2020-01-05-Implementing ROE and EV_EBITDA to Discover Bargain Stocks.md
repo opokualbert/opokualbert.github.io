@@ -96,6 +96,8 @@ def ticks(symbol):
     browser_buy.quit()
 ticks('AAPL MESA UAL aal dal BHF MLHR') 
 ```
+![](https://github.com/opokualbert/Implementing-ROE-and-EV_EBITDA-to-Discover-Bargain-Stocks/blob/master/discount%20stocks.JPG?raw=true)
+
 
 The information in this blog is for learning purpose and does not contain a recommendation for any particular security or investment. The information provided is obtained from sources which are believed to be reliable. However, I have not independently verified or otherwise investigated all such information. I do not guarantee the accuracy or completeness of any such information.
 
