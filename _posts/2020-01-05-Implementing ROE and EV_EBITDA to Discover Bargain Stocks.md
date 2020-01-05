@@ -3,7 +3,7 @@ published: true
 title: "Implementing ROE and EV_EBITDA in Python to Discover Bargain Stocks"
 date: 2020-01-05
 categories:
-  - data science
+  - Data Science
   - Finance
   - Automation
   - Selenium
