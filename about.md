@@ -18,11 +18,11 @@ __Mission statement__: Share more of what I learn about Applied AI, ML,Data Scie
 ### Senior Statistical Consultant at Alliance Data Card Services 3 years
 * Built NLP/NLU models to get insights from text documents
 * Built propensity models to support marketing campaigns
-* Automated model scoring process to free up six employees for focusing on tasks that require their expertise
+* Automated model scoring process to free up six employees to focus on tasks that require their expertise
 
 ### JPMorgan Chase Bank for 6 years
 * Senior Data Analyst in the Asset Management private bank department creating ultra-high net worth client marketing list for various marketing campaigns
-* Business Analyst II in the Mortgage department, working on statistical sampling and regulatory reporting
+* Business Analyst II in the Mortgage department, worked on statistical sampling and regulatory reporting
 * Operations Senior Specialist, focused on mortgage default analysis
 
 
